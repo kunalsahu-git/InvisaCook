@@ -9,10 +9,34 @@ import {
   SidebarFooter,
   SidebarContent,
   SidebarProvider,
+  SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { Home, Package, ShoppingCart, LineChart, Settings } from "lucide-react"
 import Link from "next/link"
 import { Header } from "@/components/shared/header";
+import { useSidebar } from "@/hooks/use-sidebar";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+
+function SidebarCollapseButton() {
+    const { open, toggleSidebar } = useSidebar();
+
+    if (!open) {
+        return null;
+    }
+
+    return (
+        <Button 
+            variant="ghost" 
+            size="icon"
+            className="ml-auto"
+            onClick={toggleSidebar}
+        >
+            <SidebarTrigger />
+        </Button>
+    )
+}
+
 
 export default function AdminLayout({
   children,
@@ -27,38 +51,39 @@ export default function AdminLayout({
              <div className="flex items-center gap-2">
                 <h2 className="text-lg font-semibold">Admin</h2>
              </div>
+             <SidebarCollapseButton />
           </SidebarHeader>
           <SidebarContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton asChild tooltip="Dashboard">
                   <Link href="/admin/dashboard">
                     <Home />
-                    <span>Dashboard</span>
+                    <span className="min-w-0">Dashboard</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton asChild tooltip="Products">
                   <Link href="/admin/products">
                     <Package />
-                    <span>Products</span>
+                     <span className="min-w-0">Products</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton asChild tooltip="Orders">
                   <Link href="/admin/orders">
                     <ShoppingCart />
-                    <span>Orders</span>
+                     <span className="min-w-0">Orders</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton asChild tooltip="Analytics">
                   <Link href="/admin/analytics">
                     <LineChart />
-                    <span>Analytics</span>
+                     <span className="min-w-0">Analytics</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -67,10 +92,10 @@ export default function AdminLayout({
           <SidebarFooter>
              <SidebarMenu>
                  <SidebarMenuItem>
-                    <SidebarMenuButton asChild>
+                    <SidebarMenuButton asChild tooltip="Settings">
                         <Link href="#">
                             <Settings />
-                            <span>Settings</span>
+                             <span className="min-w-0">Settings</span>
                         </Link>
                     </SidebarMenuButton>
                  </SidebarMenuItem>

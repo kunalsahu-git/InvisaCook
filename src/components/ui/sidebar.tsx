@@ -1,4 +1,5 @@
 
+
 "use client"
 
 import * as React from "react"
@@ -123,7 +124,7 @@ const Sidebar = React.forwardRef<
   }, []);
 
   if (!isMounted) {
-    return null; // or a skeleton loader
+    return null; 
   }
 
   if (isMobile) {
@@ -165,28 +166,10 @@ const Sidebar = React.forwardRef<
 Sidebar.displayName = "Sidebar"
 
 const SidebarTrigger = React.forwardRef<
-  React.ElementRef<typeof Button>,
-  React.ComponentProps<typeof Button>
->(({ className, onClick, ...props }, ref) => {
-  const { toggleSidebar } = useSidebar()
-
-  return (
-    <Button
-      ref={ref}
-      data-sidebar="trigger"
-      variant="ghost"
-      size="icon"
-      className={cn("h-7 w-7", className)}
-      onClick={(event) => {
-        onClick?.(event)
-        toggleSidebar()
-      }}
-      {...props}
-    >
-      <PanelLeft />
-      <span className="sr-only">Toggle Sidebar</span>
-    </Button>
-  )
+  SVGSVGElement,
+  React.ComponentProps<typeof PanelLeft>
+>((props, ref) => {
+    return <PanelLeft ref={ref} {...props} />
 })
 SidebarTrigger.displayName = "SidebarTrigger"
 
@@ -199,7 +182,7 @@ const SidebarHeader = React.forwardRef<
     <div
       ref={ref}
       data-sidebar="header"
-      className={cn("flex items-center p-3", !open && "justify-center", className)}
+      className={cn("flex h-16 items-center p-3 border-b", !open && "justify-center", className)}
       {...props}
     />
   )
@@ -214,7 +197,7 @@ const SidebarFooter = React.forwardRef<
     <div
       ref={ref}
       data-sidebar="footer"
-      className={cn("flex flex-col gap-2 p-3 mt-auto", className)}
+      className={cn("flex flex-col gap-2 p-3 mt-auto border-t", className)}
       {...props}
     />
   )
@@ -266,7 +249,7 @@ const SidebarMenuItem = React.forwardRef<
 SidebarMenuItem.displayName = "SidebarMenuItem"
 
 const sidebarMenuButtonVariants = cva(
-  "peer/menu-button flex w-full items-center gap-2 overflow-hidden rounded-md p-2 text-left text-sm outline-none ring-sidebar-ring transition-all hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground",
+  "peer/menu-button flex w-full items-center gap-2 overflow-hidden whitespace-nowrap rounded-md p-2 text-left text-sm outline-none ring-sidebar-ring transition-all hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground",
   {
     variants: {
       variant: {
@@ -320,7 +303,14 @@ const SidebarMenuButton = React.forwardRef<
         className={cn(sidebarMenuButtonVariants({ variant, size }), !open && "justify-center", className)}
         {...props}
         >
-        {children}
+        {React.Children.map(children, (child) => {
+            if (React.isValidElement(child) && child.type === 'span') {
+                return React.cloneElement(child as React.ReactElement, {
+                    className: cn("transition-opacity duration-300", !open && "opacity-0 h-0"),
+                });
+            }
+            return child;
+        })}
         </Comp>
     )
 
