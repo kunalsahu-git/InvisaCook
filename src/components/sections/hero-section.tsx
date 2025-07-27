@@ -1,19 +1,20 @@
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import Link from "next/link";
 
 export function HeroSection() {
   return (
-    <section id="home" className="relative h-[80vh] min-h-[600px] w-full">
+    <section id="home" className="relative h-[80vh] min-h-[600px] w-full overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <Image
-          src="https://placehold.co/1920x1080.png"
-          alt="Modern kitchen with an invisible cooktop"
-          layout="fill"
-          objectFit="cover"
-          className="brightness-50"
-          data-ai-hint="modern kitchen"
-        />
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover brightness-50"
+          src="https://videos.pexels.com/video-files/4321111/4321111-hd_1920_1080_25fps.mp4"
+        >
+            Your browser does not support the video tag.
+        </video>
         <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
       </div>
       <div className="container relative z-10 mx-auto flex h-full max-w-7xl flex-col items-center justify-center text-center text-white">
