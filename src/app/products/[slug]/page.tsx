@@ -1,4 +1,5 @@
 
+
 import { notFound } from "next/navigation";
 import { Header } from "@/components/shared/header";
 import { Footer } from "@/components/shared/footer";
@@ -23,6 +24,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ProductGallery } from "@/components/shared/product-gallery";
+import { CustomerReviews } from "@/components/sections/customer-reviews";
+import { RelatedProducts } from "@/components/sections/related-products";
 
 const productData = {
   "invisacook-burners": {
@@ -136,11 +139,16 @@ const productData = {
   },
 };
 
-type Product = (typeof productData)[keyof typeof productData];
+export type Product = (typeof productData)[keyof typeof productData];
 
-const getProductBySlug = (slug: string): Product | undefined => {
+export const getProductBySlug = (slug: string): Product | undefined => {
   return productData[slug as keyof typeof productData];
 };
+
+export const getAllProducts = () => {
+    return Object.entries(productData).map(([slug, product]) => ({...product, slug}))
+}
+
 
 export default function ProductDetailPage({
   params,
@@ -223,6 +231,10 @@ export default function ProductDetailPage({
             </div>
           </div>
         </div>
+        
+        <CustomerReviews />
+        <RelatedProducts currentProductSlug={params.slug}/>
+
       </main>
       <Footer />
     </div>
