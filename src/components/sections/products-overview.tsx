@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Flame, Wifi, Zap, Layers, CircleDollarSign, Sun, BatteryCharging, Ruler, ShoppingCart } from "lucide-react";
+import { Flame, Wifi, Zap, Layers, CircleDollarSign, Sun, BatteryCharging, Ruler, ShoppingCart, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -84,11 +84,13 @@ export function ProductsOverview() {
                     data-ai-hint={product.aiHint}
                   />
                 </div>
-                <CardHeader>
-                  <CardTitle>{product.title}</CardTitle>
-                  <CardDescription>{product.description}</CardDescription>
-                </CardHeader>
               </Link>
+                <CardHeader>
+                  <Link href={`/products/${product.slug}`} className="block">
+                    <CardTitle>{product.title}</CardTitle>
+                    <CardDescription>{product.description}</CardDescription>
+                  </Link>
+                </CardHeader>
               <CardContent className="flex-grow flex flex-col justify-between">
                 <div className="space-y-2">
                   <h4 className="font-semibold text-sm">Key Features:</h4>
@@ -101,10 +103,17 @@ export function ProductsOverview() {
                     ))}
                   </ul>
                 </div>
-                 <Button className="mt-6 w-full">
-                    <ShoppingCart className="mr-2 h-4 w-4" />
-                    Add to Cart
-                </Button>
+                 <div className="mt-6 flex gap-2">
+                    <Button className="flex-1">
+                        <ShoppingCart className="mr-2 h-4 w-4" />
+                        Add to Cart
+                    </Button>
+                    <Button asChild className="flex-1" variant="outline">
+                        <Link href={`/products/${product.slug}`}>
+                           Details
+                        </Link>
+                    </Button>
+                </div>
               </CardContent>
             </Card>
           ))}
