@@ -11,10 +11,19 @@ import { Menu, CookingPot, ShoppingCart, PanelLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "@/components/ui/sidebar";
 
+function AdminHeaderActions() {
+    const { toggleSidebar } = useSidebar();
+    return (
+        <Button variant="ghost" size="icon" onClick={toggleSidebar} className="md:hidden">
+            <PanelLeft className="h-6 w-6" />
+            <span className="sr-only">Toggle Sidebar</span>
+        </Button>
+    )
+}
+
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-  const { toggleSidebar, isMobile } = useSidebar();
   
   const navItems = [
     { href: "/", label: "Home" },
@@ -32,12 +41,7 @@ export function Header() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-6">
         <div className="flex items-center gap-2">
-            {isAdminRoute && (
-                 <Button variant="ghost" size="icon" onClick={toggleSidebar} className="md:hidden">
-                    <PanelLeft className="h-6 w-6" />
-                    <span className="sr-only">Toggle Sidebar</span>
-                 </Button>
-            )}
+            {isAdminRoute && <AdminHeaderActions />}
             <Link href="/" className="flex items-center gap-2 font-bold" aria-label="InvisaCook Home">
             <CookingPot className="h-6 w-6 text-accent" />
             <span className="font-headline text-xl font-semibold">InvisaCook</span>
