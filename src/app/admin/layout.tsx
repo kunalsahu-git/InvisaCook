@@ -77,7 +77,7 @@ export default function AdminLayout({
              </SidebarMenu>
           </SidebarFooter>
         </Sidebar>
-        <div className="flex flex-col sm:gap-4 sm:py-4 transition-all duration-300 ease-in-out group-[[data-state=expanded]]/sidebar-wrapper:sm:pl-[var(--sidebar-width)] group-[[data-state=collapsed]]/sidebar-wrapper:sm:pl-[var(--sidebar-width-icon)]">
+        <div className="flex flex-col sm:gap-4 sm:py-4 transition-all duration-300 ease-in-out group-data-[state=expanded]/sidebar-wrapper:sm:pl-[var(--sidebar-width)] group-data-[state=collapsed]/sidebar-wrapper:sm:pl-[var(--sidebar-width-icon)]">
           <Header />
           <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
             {children}
