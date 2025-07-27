@@ -30,6 +30,7 @@ export const productData = {
     videos: [
         { id: '1', videoId: 'ImjA1KTw7KA', title: 'See the InvisaCook in Action', aiHint: 'cooking demo', duration: '2:34' },
         { id: '2', videoId: 'dQw4w9WgXcQ', title: 'Installation on Granite Countertops', aiHint: 'kitchen installation', duration: '8:12' },
+        { id: '5', videoSrc: '/videos/intro.mp4', title: 'Local Video Demo', aiHint: 'cooking demo', duration: '0:30' },
     ],
     documents: [
       { id: 1, title: "4-Burner Installation Manual", description: "Complete guide to installing the 4-burner model.", type: "Manual", language: "English" },
@@ -182,7 +183,8 @@ export type Product = {
   }[];
   videos: {
     id: string;
-    videoId: string;
+    videoId?: string;
+    videoSrc?: string;
     title: string;
     aiHint: string;
     duration: string;

@@ -8,8 +8,12 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import type { Product } from "@/lib/products";
 
-function getThumbnailUrl(videoId: string) {
-    return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+function getThumbnailUrl(video: Product['videos'][0]) {
+    if (video.videoSrc) {
+        // Use a placeholder for local videos, or you could implement a thumbnail generation strategy
+        return "https://placehold.co/600x400.png?text=Video";
+    }
+    return `https://i.ytimg.com/vi/${video.videoId}/hqdefault.jpg`;
 }
 
 export function ProductVideos({ videos }: { videos: Product['videos'] }) {
@@ -35,7 +39,7 @@ export function ProductVideos({ videos }: { videos: Product['videos'] }) {
                                 <CardContent className="p-0">
                                     <button onClick={() => setSelectedVideo(video)} className="block relative w-full text-left">
                                         <Image
-                                            src={getThumbnailUrl(video.videoId)}
+                                            src={getThumbnailUrl(video)}
                                             alt={video.title}
                                             width={600}
                                             height={400}
@@ -59,14 +63,25 @@ export function ProductVideos({ videos }: { videos: Product['videos'] }) {
                      {selectedVideo && (
                         <DialogContent className="max-w-4xl h-auto p-0 border-0">
                             <div className="aspect-video">
-                                <iframe
-                                    src={`https://www.youtube.com/embed/${selectedVideo.videoId}?autoplay=1`}
-                                    title={selectedVideo.title}
-                                    frameBorder="0"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                    className="w-full h-full"
-                                ></iframe>
+                                {selectedVideo.videoSrc ? (
+                                     <video
+                                        src={selectedVideo.videoSrc}
+                                        controls
+                                        autoPlay
+                                        className="w-full h-full"
+                                    >
+                                        Your browser does not support the video tag.
+                                    </video>
+                                ) : (
+                                    <iframe
+                                        src={`https://www.youtube.com/embed/${selectedVideo.videoId}?autoplay=1`}
+                                        title={selectedVideo.title}
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                        className="w-full h-full"
+                                    ></iframe>
+                                )}
                             </div>
                         </DialogContent>
                     )}
