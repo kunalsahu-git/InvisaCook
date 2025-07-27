@@ -1,6 +1,5 @@
 
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import { Header } from "@/components/shared/header";
 import { Footer } from "@/components/shared/footer";
 import { Button } from "@/components/ui/button";
@@ -22,16 +21,20 @@ import {
   CardContent,
   CardHeader,
   CardTitle,
-  CardDescription,
 } from "@/components/ui/card";
+import { ProductGallery } from "@/components/shared/product-gallery";
 
 const productData = {
   "invisacook-burners": {
     title: "InvisaCook Burners",
     description:
       "The core of the InvisaCook system. These powerful induction elements mount directly beneath your countertop, creating a completely invisible and versatile cooking surface. Experience the magic of cooking directly on your porcelain or granite countertop.",
-    image: "https://placehold.co/800x600.png",
-    aiHint: "kitchen countertop",
+    images: [
+      { src: "https://placehold.co/800x800.png", alt: "InvisaCook Burners on a countertop", aiHint: "kitchen countertop" },
+      { src: "https://placehold.co/800x800.png", alt: "Close-up of InvisaCook controls", aiHint: "touch controls" },
+      { src: "https://placehold.co/800x800.png", alt: "Undermount view of InvisaCook installation", aiHint: "product installation" },
+      { src: "https://placehold.co/800x800.png", alt: "Cooking with InvisaCook", aiHint: "active cooking" },
+    ],
     features: [
       { icon: Flame, text: "Available in 1 to 4 burner configurations" },
       { icon: Zap, text: "Power Boost feature for rapid heating" },
@@ -48,8 +51,12 @@ const productData = {
     title: "InvisaCookware Sets",
     description:
       "Engineered for maximum performance and to protect your valuable countertop. Our 5-ply copper core cookware ensures even heat distribution, while the proprietary riser system elevates the pan just enough to prevent scorching and optimize induction transfer.",
-    image: "https://placehold.co/800x600.png",
-    aiHint: "cookware set",
+    images: [
+      { src: "https://placehold.co/800x800.png", alt: "Full InvisaCookware set", aiHint: "cookware set" },
+      { src: "https://placehold.co/800x800.png", alt: "Close-up of a pot from the set", aiHint: "stainless steel pot" },
+      { src: "https://placehold.co/800x800.png", alt: "Bottom of a pan showing copper core", aiHint: "copper pan" },
+      { src: "https://placehold.co/800x800.png", alt: "Cookware in action on an InvisaCook surface", aiHint: "cooking pot" },
+    ],
     features: [
       { icon: Layers, text: "5-Ply Copper Core construction for even heating" },
       {
@@ -68,8 +75,11 @@ const productData = {
     title: "InvisaMat",
     description:
       "The essential accessory for your InvisaCook system. This proprietary silicone mat ensures proper heat diffusion, protects the countertop surface from scratches, and helps indicate the active cooking zone. It's the perfect blend of safety and functionality.",
-    image: "https://placehold.co/800x600.png",
-    aiHint: "silicone mat",
+    images: [
+      { src: "https://placehold.co/800x800.png", alt: "InvisaMat on a countertop", aiHint: "silicone mat" },
+      { src: "https://placehold.co/800x800.png", alt: "Close-up of the InvisaMat texture", aiHint: "silicone texture" },
+      { src: "https://placehold.co/800x800.png", alt: "InvisaMat being cleaned", aiHint: "kitchen cleaning" },
+    ],
     features: [
       { icon: Sun, text: "Optimizes heat transfer for efficient cooking" },
       { text: "Protects countertop from scratches and minor spills" },
@@ -85,8 +95,11 @@ const productData = {
     title: "InvisaCharge",
     description:
       "Declutter your kitchen with our through-surface wireless charger. Like the InvisaCook, the InvisaCharge mounts invisibly under your countertop, providing a powerful Qi charging station that works through up to 5cm of stone.",
-    image: "https://placehold.co/800x600.png",
-    aiHint: "wireless charger",
+    images: [
+        { src: "https://placehold.co/800x800.png", alt: "Phone charging on countertop with InvisaCharge", aiHint: "wireless charging" },
+        { src: "https://placehold.co/800x800.png", alt: "Underside view of the InvisaCharge unit", aiHint: "charger installation" },
+        { src: "https://placehold.co/800x800.png", alt: "Diagram showing charging through stone", aiHint: "technology diagram" },
+    ],
     features: [
       {
         icon: BatteryCharging,
@@ -105,8 +118,11 @@ const productData = {
     title: "InvisaRail",
     description:
       "The backbone of your InvisaCook installation. This precision-engineered rail system provides the essential support structure for your undermount burners, ensuring a perfectly level and secure fit within your cabinetry.",
-    image: "https://placehold.co/800x600.png",
-    aiHint: "metal rail",
+    images: [
+        { src: "https://placehold.co/800x800.png", alt: "InvisaRail system", aiHint: "metal rail" },
+        { src: "https://placehold.co/800x800.png", alt: "Close-up of InvisaRail mounting bracket", aiHint: "metal bracket" },
+        { src: "https://placehold.co/800x800.png", alt: "InvisaRail installed in a cabinet", aiHint: "kitchen cabinet" },
+    ],
     features: [
       { icon: Ruler, text: "Supports cabinet widths up to 96 inches" },
       { text: "Ensures level and secure burner installation" },
@@ -141,7 +157,7 @@ export default function ProductDetailPage({
     <div className="flex min-h-screen flex-col bg-secondary/20">
       <Header />
       <main className="flex-1 py-12 md:py-16 lg:py-20">
-        <div className="container mx-auto max-w-5xl px-4 md:px-6">
+        <div className="container mx-auto max-w-6xl px-4 md:px-6">
           <div className="mb-8">
             <Button asChild variant="ghost">
               <Link href="/#products">
@@ -152,16 +168,7 @@ export default function ProductDetailPage({
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-            <div className="flex items-center justify-center">
-              <Image
-                src={product.image}
-                alt={product.title}
-                width={600}
-                height={600}
-                className="rounded-lg shadow-2xl aspect-square object-cover"
-                data-ai-hint={product.aiHint}
-              />
-            </div>
+            <ProductGallery images={product.images} />
 
             <div className="space-y-6">
               <div className="space-y-2">
