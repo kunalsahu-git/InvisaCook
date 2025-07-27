@@ -40,7 +40,7 @@ export function Header() {
     <header className={cn(
         "sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60",
     )}>
-      <div className={cn("container flex h-16 items-center justify-between px-4 md:px-6", isAdminRoute ? "max-w-full sm:px-6" : "max-w-7xl")}>
+      <div className={cn("flex h-16 items-center", isAdminRoute ? "px-4 sm:px-6" : "container max-w-7xl px-4 md:px-6 justify-between")}>
         <div className="flex items-center gap-2">
             {isAdminRoute && <AdminHeaderActions />}
             <Link href="/" className="flex items-center gap-2 font-bold" aria-label="InvisaCook Home">
