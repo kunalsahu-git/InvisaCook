@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Facebook, Instagram, Youtube } from "lucide-react";
+import { Facebook, Instagram, Youtube, PlayCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "../ui/button";
 import Link from "next/link";
