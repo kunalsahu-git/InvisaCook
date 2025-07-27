@@ -3,7 +3,6 @@
 
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
 import { PlayCircle, ArrowRight, Link as LinkIcon } from "lucide-react";
 import { Button } from "../ui/button";
@@ -110,32 +109,34 @@ const MediaItemCard = ({ item }: { item: (typeof allMediaItems)[0] }) => {
         : item.image;
 
     return (
-        <Card className="overflow-hidden border border-accent/20 hover:border-accent transition-all duration-300">
-             <Link href={item.link || '#'} target="_blank">
-                <div className="grid md:grid-cols-2">
-                    <div className="relative group">
-                         {imageUrl && (
-                             <Image
-                                src={imageUrl}
-                                alt={item.title}
-                                width={450}
-                                height={340}
-                                className="h-full w-full object-cover aspect-video md:aspect-auto"
-                                data-ai-hint={item.aiHint}
-                            />
-                         )}
-                         {isVideo && (
-                              <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <PlayCircle className="h-16 w-16 text-white" />
-                            </div>
-                         )}
-                    </div>
-                    <div className="p-6 flex flex-col justify-center">
-                        <h3 className="text-2xl font-bold">{item.title}</h3>
-                        <p className="mt-2 text-muted-foreground break-words">{item.description}</p>
-                    </div>
+        <Card className="group overflow-hidden flex flex-col">
+            <CardContent className="p-0 flex-grow flex flex-col">
+            <Link href={item.link || '#'} target="_blank" className="block">
+                <div className="relative">
+                {imageUrl && (
+                    <Image
+                        src={imageUrl}
+                        alt={item.title}
+                        width={600}
+                        height={400}
+                        className="h-auto w-full object-cover aspect-video transition-transform duration-300 group-hover:scale-105"
+                        data-ai-hint={item.aiHint}
+                    />
+                )}
+                <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    {isVideo ? (
+                    <PlayCircle className="h-16 w-16 text-white" />
+                    ) : (
+                    <LinkIcon className="h-16 w-16 text-white" />
+                    )}
+                </div>
                 </div>
             </Link>
+            <div className="p-4 flex-grow flex flex-col">
+                <h3 className="font-semibold text-lg">{item.title}</h3>
+                <p className="text-sm text-muted-foreground mt-2 flex-grow">{item.description}</p>
+            </div>
+            </CardContent>
         </Card>
     )
 }
@@ -152,7 +153,7 @@ export function MediaGallery({ isPage = false }: { isPage?: boolean }) {
             Watch product demos, installation tutorials, and see what the press is saying about InvisaCook.
           </p>
         </div>
-        <div className="mt-12 grid gap-8">
+        <div className="mt-12 grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {itemsToShow.map((item) => <MediaItemCard key={item.title} item={item} />)}
         </div>
         {!isPage && allMediaItems.length > 3 && (
