@@ -12,7 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Separator } from "@/components/ui/separator";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
-import { getAllProducts } from "@/app/products/[slug]/page";
+import { getAllProducts } from "@/lib/products";
 import Link from "next/link";
 import { ArrowLeft, Lock } from "lucide-react";
 

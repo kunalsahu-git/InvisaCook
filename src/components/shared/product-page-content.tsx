@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ProductGallery } from "@/components/shared/product-gallery";
-import { ProductWithSlug } from "@/app/products/[slug]/page";
+import { ProductWithSlug } from "@/lib/products";
 import {
   ChevronLeft,
   ShoppingCart,
@@ -47,7 +47,7 @@ export function ProductPageContent({ product }: { product: ProductWithSlug }) {
     <div className="container mx-auto max-w-6xl px-4 md:px-6">
       <div className="mb-8">
         <Button asChild variant="ghost">
-          <Link href="/#products">
+          <Link href="/products">
             <ChevronLeft className="mr-2 h-4 w-4" />
             Back to Products
           </Link>
@@ -59,7 +59,7 @@ export function ProductPageContent({ product }: { product: ProductWithSlug }) {
 
         <div className="space-y-6">
           <div className="space-y-4">
-            <Badge variant="secondary">{product.slug.split("-")[0]}</Badge>
+            <Badge variant="secondary">{product.category}</Badge>
             <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
               {product.title}
             </h1>

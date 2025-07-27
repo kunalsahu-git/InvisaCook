@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { getAllProducts } from "@/app/products/[slug]/page";
+import { getAllProducts } from "@/lib/products";
 
 interface RelatedProductsProps {
     currentProductSlug: string;

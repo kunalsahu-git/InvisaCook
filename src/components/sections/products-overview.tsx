@@ -7,62 +7,10 @@ import { Flame, Wifi, Zap, Layers, CircleDollarSign, Sun, BatteryCharging, Ruler
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { getAllProducts } from "@/lib/products";
 
-const products = [
-  {
-    slug: "invisacook-burners",
-    title: "InvisaCook Burners",
-    description: "Undermount induction elements for a truly invisible cooktop. Available in 1-4 burner models.",
-    image: "https://placehold.co/500x300.png",
-    aiHint: "kitchen countertop",
-    features: [
-      { icon: Flame, text: "Up to 4 elements" },
-      { icon: Zap, text: "Power Boost" },
-      { icon: Wifi, text: "Wi-Fi/App Control" },
-    ],
-  },
-  {
-    slug: "invisacookware-sets",
-    title: "InvisaCookware Sets",
-    description: "Engineered for performance with a riser system to protect your countertop.",
-    image: "https://placehold.co/500x300.png",
-    aiHint: "cookware set",
-    features: [
-      { icon: Layers, text: "5-Ply Copper Core" },
-      { icon: CircleDollarSign, text: "Starting at $499" },
-    ],
-  },
-  {
-    slug: "invisamat",
-    title: "InvisaMat",
-    description: "A proprietary silicone mat that ensures proper heat diffusion and compatibility.",
-    image: "https://placehold.co/500x300.png",
-    aiHint: "silicone mat",
-    features: [
-      { icon: Sun, text: "Optimizes Heat" },
-    ],
-  },
-  {
-    slug: "invisacharge",
-    title: "InvisaCharge",
-    description: "Qi wireless charging that works through countertops up to 5cm thick.",
-    image: "https://placehold.co/500x300.png",
-    aiHint: "wireless charger",
-    features: [
-        { icon: BatteryCharging, text: "Through-Surface Power" },
-    ],
-  },
-  {
-    slug: "invisarail",
-    title: "InvisaRail",
-    description: "The support structure for your burners, ensuring a secure and level installation.",
-    image: "https://placehold.co/500x300.png",
-    aiHint: "metal rail",
-    features: [
-        { icon: Ruler, text: "Supports up to 96\" cabinets" },
-    ],
-  },
-];
+const products = getAllProducts();
+
 
 export function ProductsOverview() {
   const [addingToCart, setAddingToCart] = useState<string | null>(null);
@@ -90,12 +38,12 @@ export function ProductsOverview() {
               <Link href={`/products/${product.slug}`} className="block">
                 <div className="relative">
                   <Image
-                    src={product.image}
+                    src={product.images[0].src}
                     alt={product.title}
                     width={500}
                     height={300}
                     className="h-auto w-full object-cover"
-                    data-ai-hint={product.aiHint}
+                    data-ai-hint={product.images[0].aiHint}
                   />
                 </div>
               </Link>
@@ -109,12 +57,16 @@ export function ProductsOverview() {
                 <div className="space-y-2">
                   <h4 className="font-semibold text-sm">Key Features:</h4>
                   <ul className="space-y-2">
-                    {product.features.map((feature, index) => (
+                    {product.features.map((feature, index) => {
+                      const Icon = feature.icon ? ({
+                          Flame, Wifi, Zap, Layers, CircleDollarSign, Sun, BatteryCharging, Ruler
+                      }[feature.icon]) : null;
+                      return (
                       <li key={index} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <feature.icon className="h-4 w-4 text-accent" />
+                       {Icon && <Icon className="h-4 w-4 text-accent" />}
                         <span>{feature.text}</span>
                       </li>
-                    ))}
+                    )})}
                   </ul>
                 </div>
                  <div className="mt-6 flex gap-2 relative">

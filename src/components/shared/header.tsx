@@ -14,7 +14,7 @@ export function Header() {
   
   const navItems = [
     { href: "/", label: "Home" },
-    { href: "/#products", label: "Products" },
+    { href: "/products", label: "Products" },
     { href: "/#tech", label: "How It Works" },
     { href: "/resources", label: "Resources" },
     { href: "/dealers", label: "Dealers" },
@@ -32,7 +32,7 @@ export function Header() {
 
         <nav className="hidden md:flex md:items-center md:gap-6 text-sm font-medium">
           {navItems.map((item) => {
-            const isActive = pathname === item.href;
+            const isActive = item.href === "/" ? pathname === item.href : pathname.startsWith(item.href);
             return (
               <Link 
                 key={item.label} 
@@ -73,7 +73,7 @@ export function Header() {
                 </Link>
                 <nav className="grid gap-4">
                   {navItems.map((item) => {
-                     const isActive = pathname === item.href;
+                     const isActive = item.href === "/" ? pathname === item.href : pathname.startsWith(item.href);
                     return (
                       <Link
                         key={item.label}

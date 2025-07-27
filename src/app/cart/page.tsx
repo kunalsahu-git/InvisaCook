@@ -3,7 +3,7 @@ import { Footer } from "@/components/shared/footer";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { getAllProducts } from "@/app/products/[slug]/page";
+import { getAllProducts } from "@/lib/products";
 import Image from "next/image";
 import Link from "next/link";
 import { Plus, Minus, Trash2, CreditCard } from "lucide-react";
@@ -98,7 +98,7 @@ export default function CartPage() {
                 <h2 className="text-2xl font-semibold">Your cart is empty</h2>
                 <p className="text-muted-foreground mt-2">Looks like you haven't added anything to your cart yet.</p>
                 <Button asChild className="mt-6">
-                  <Link href="/">Continue Shopping</Link>
+                  <Link href="/products">Continue Shopping</Link>
                 </Button>
               </CardContent>
             </Card>
