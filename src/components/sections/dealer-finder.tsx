@@ -1,6 +1,7 @@
 
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
@@ -8,6 +9,7 @@ import { MapPin, Search, Mail, Phone, Link as LinkIcon, ArrowRight } from "lucid
 import Link from "next/link";
 import { Map } from "../shared/map";
 import { Button } from "../ui/button";
+import { cn } from "@/lib/utils";
 
 const dealers = [
     {
@@ -15,39 +17,52 @@ const dealers = [
         email: "info@invisacook.com",
         address: "2323 N State St #96, Palm Coast, FL 32137, USA",
         phone: "386-263-8578",
-        website: "https://www.invisacook.com"
+        website: "https://www.invisacook.com",
+        lat: 29.5823,
+        lon: -81.24,
     },
     {
         name: "PRISTINE MARBLE AND GRANITE",
         email: "info@pristinemarble.com",
         address: "5466 Regio PI, Atascadero, CA 93422, USA",
         phone: "(805) 466-9222",
-        website: "https://www.pristinemarble.com"
+        website: "https://www.pristinemarble.com",
+        lat: 35.4855,
+        lon: -120.6698,
     },
     {
         name: "MUNDANO JOHNSON - SHOWROOM",
         email: "info@johnsoncanning.com.ar",
         address: "Mariano Castex 1332, B1804BRS Canning, Provincia de Buenos Aires, Argentina",
         phone: "54(11) 3003-4435",
-        website: "https://johnsoncanning.com.ar/"
+        website: "https://johnsoncanning.com.ar/",
+        lat: -34.86,
+        lon: -58.503,
     },
     {
         name: "BELLA STONE DESIGNS",
         email: "aburch@bellastonedesigns.com",
         address: "4024 S Brook St, Louisville, KY 40214, USA",
         phone: "(502)780-1042",
-        website: "https://bellastonedesigns.com"
+        website: "https://bellastonedesigns.com",
+        lat: 38.194,
+        lon: -85.759,
     },
      {
         name: "DOMUM JOHNSON - SHOWROOM",
         email: "info@domum.com.ar",
         address: "Av. Pres. Figueroa Alcorta 3375, C1425CKG CABA, Argentina",
         phone: "+54 11 4809-8900",
-        website: "https://www.domum.com.ar/"
+        website: "https://www.domum.com.ar/",
+        lat: -34.577,
+        lon: -58.42,
     }
 ]
 
+export type Dealer = typeof dealers[0];
+
 export function DealerFinder() {
+  const [selectedDealer, setSelectedDealer] = useState<Dealer | null>(null);
 
   return (
     <section id="dealers" className="w-full py-12 md:py-24 bg-background">
@@ -61,7 +76,7 @@ export function DealerFinder() {
 
         <div className="grid lg:grid-cols-5 gap-8">
           <div className="lg:col-span-3 aspect-[4/3] w-full overflow-hidden rounded-xl shadow-lg">
-             <Map />
+             <Map dealers={dealers} selectedDealer={selectedDealer} setSelectedDealer={setSelectedDealer} />
           </div>
 
           <div className="lg:col-span-2">
@@ -75,8 +90,8 @@ export function DealerFinder() {
                 <CardContent className="p-0">
                     <ScrollArea className="h-[calc(theme(height.96)_-_theme(spacing.4))]">
                        <ul className="divide-y">
-                           {dealers.map((dealer, index) => (
-                               <li key={index} className="p-4 hover:bg-secondary/50">
+                           {dealers.map((dealer) => (
+                               <li key={dealer.name} className={cn("p-4 hover:bg-secondary/50 cursor-pointer", selectedDealer?.name === dealer.name && "bg-secondary")} onClick={() => setSelectedDealer(dealer)}>
                                    <h3 className="font-semibold text-primary">{dealer.name}</h3>
                                    <div className="mt-2 space-y-2 text-sm text-muted-foreground">
                                        <p className="flex items-start gap-3"><MapPin className="h-4 w-4 mt-0.5 shrink-0 text-accent"/><span>{dealer.address}</span></p>
