@@ -165,15 +165,6 @@ const Sidebar = React.forwardRef<
         setIsMounted(true);
     }, []);
 
-    if (!isMounted) {
-      if (collapsible === 'none') {
-        return (
-          <div className="flex h-full w-[--sidebar-width] flex-col bg-sidebar text-sidebar-foreground" />
-        )
-      }
-      return <div className="hidden md:block w-[--sidebar-width-icon]" />;
-    }
-
     if (collapsible === "none") {
       return (
         <div
@@ -212,7 +203,11 @@ const Sidebar = React.forwardRef<
     return (
       <div
         ref={ref}
-        className="group peer hidden md:block text-sidebar-foreground"
+        className={cn(
+            "group peer text-sidebar-foreground",
+            !isMounted && "hidden", // Hide on server and first client render to prevent hydration mismatch
+            isMounted && "md:block" // Show on client after mount
+        )}
         data-state={state}
         data-collapsible={state === "collapsed" ? collapsible : ""}
         data-variant={variant}
@@ -758,3 +753,5 @@ export {
   SidebarTrigger,
   useSidebar,
 }
+
+    
