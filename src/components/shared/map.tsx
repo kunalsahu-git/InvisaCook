@@ -3,8 +3,8 @@
 
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import { Icon, LatLngExpression } from 'leaflet';
-import { useEffect } from 'react';
+import { Icon, LatLngExpression, Map as LeafletMap } from 'leaflet';
+import { useEffect, useRef } from 'react';
 import type { Dealer } from '../sections/dealer-finder';
 
 const customIcon = new Icon({
@@ -26,26 +26,26 @@ const selectedIcon = new Icon({
     shadowSize: [41, 41]
 });
 
-function ChangeView({ center, zoom }: { center: LatLngExpression, zoom: number }) {
-  const map = useMap();
-  useEffect(() => {
-    map.setView(center, zoom);
-  }, [center, zoom, map]);
-  return null;
+function MapUpdater({ selectedDealer }: { selectedDealer: Dealer | null }) {
+    const map = useMap();
+    useEffect(() => {
+        if (selectedDealer) {
+            map.setView([selectedDealer.lat, selectedDealer.lon], 14);
+        }
+    }, [selectedDealer, map]);
+    return null;
 }
 
 export const Map = ({ dealers, selectedDealer, setSelectedDealer }: { dealers: Dealer[], selectedDealer: Dealer | null, setSelectedDealer: (dealer: Dealer | null) => void }) => {
   const defaultPosition: LatLngExpression = [39.8283, -98.5795]; // Center of US
-  const center = selectedDealer ? [selectedDealer.lat, selectedDealer.lon] as LatLngExpression : defaultPosition;
-  const zoom = selectedDealer ? 14 : 4;
   
   return (
-    <MapContainer center={center} zoom={zoom} scrollWheelZoom={false} className="h-full w-full">
+    <MapContainer center={defaultPosition} zoom={4} scrollWheelZoom={false} className="h-full w-full">
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <ChangeView center={center} zoom={zoom} />
+      <MapUpdater selectedDealer={selectedDealer} />
       {dealers.map(dealer => (
         <Marker 
           key={dealer.name} 
