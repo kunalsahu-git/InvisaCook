@@ -9,6 +9,7 @@ import { ProductPageContent } from "@/components/shared/product-page-content";
 import { getProductBySlug, getAllProducts } from "@/lib/products";
 import { ProductVideos } from "@/components/sections/product-videos";
 import { ProductDownloads } from "@/components/sections/product-downloads";
+import { OtherCookwareBrands } from "@/components/sections/other-cookware-brands";
 
 function ProductDetailPage({
   params,
@@ -21,6 +22,8 @@ function ProductDetailPage({
     notFound();
   }
 
+  const isCookware = product.category === 'Cookware';
+
   return (
     <div className="flex min-h-screen flex-col bg-secondary/20">
       <Header />
@@ -29,6 +32,7 @@ function ProductDetailPage({
         <ProductPageContent product={product} />
 
         <ProductVideos videos={product.videos} />
+        {isCookware && <OtherCookwareBrands />}
         <ProductDownloads documents={product.documents} />
         <CustomerReviews />
         <RelatedProducts currentProductSlug={params.slug}/>
