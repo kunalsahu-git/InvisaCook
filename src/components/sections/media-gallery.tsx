@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState } from "react";
@@ -8,6 +9,7 @@ import { PlayCircle, ArrowRight, Link as LinkIcon } from "lucide-react";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 
 const allMediaItems = [
     {
@@ -102,16 +104,22 @@ const allMediaItems = [
     },
 ];
 
-const MediaItemCard = ({ item }: { item: (typeof allMediaItems)[0] }) => {
+type MediaItem = (typeof allMediaItems)[0];
+
+const MediaItemCard = ({ item, onVideoSelect }: { item: MediaItem, onVideoSelect: (video: MediaItem) => void }) => {
     const isVideo = item.type === 'video';
-    const imageUrl = isVideo 
+    const imageUrl = isVideo && item.videoId
         ? `https://i.ytimg.com/vi/${item.videoId}/maxresdefault.jpg`
         : item.image;
+
+    const Wrapper = ({children}: {children: React.ReactNode}) => isVideo ? 
+        <button onClick={() => onVideoSelect(item)} className="block w-full text-left">{children}</button> : 
+        <Link href={item.link || '#'} target="_blank" className="block">{children}</Link>;
 
     return (
         <Card className="group overflow-hidden flex flex-col">
             <CardContent className="p-0 flex-grow flex flex-col">
-            <Link href={item.link || '#'} target="_blank" className="block">
+            <Wrapper>
                 <div className="relative">
                 {imageUrl && (
                     <Image
@@ -131,7 +139,7 @@ const MediaItemCard = ({ item }: { item: (typeof allMediaItems)[0] }) => {
                     )}
                 </div>
                 </div>
-            </Link>
+            </Wrapper>
             <div className="p-4 flex-grow flex flex-col">
                 <h3 className="font-semibold text-lg">{item.title}</h3>
                 <p className="text-sm text-muted-foreground mt-2 flex-grow">{item.description}</p>
@@ -142,30 +150,48 @@ const MediaItemCard = ({ item }: { item: (typeof allMediaItems)[0] }) => {
 }
 
 export function MediaGallery({ isPage = false }: { isPage?: boolean }) {
+  const [selectedVideo, setSelectedVideo] = useState<MediaItem | null>(null);
   const itemsToShow = isPage ? allMediaItems : allMediaItems.slice(0, 3);
 
   return (
     <section id="media" className={cn("w-full py-12 md:py-24", isPage ? "bg-background" : "bg-secondary/50")}>
-      <div className="container mx-auto max-w-7xl px-4 md:px-6">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Media & Features</h2>
-          <p className="mt-4 text-muted-foreground md:text-xl/relaxed">
-            Watch product demos, installation tutorials, and see what the press is saying about InvisaCook.
-          </p>
+       <Dialog open={!!selectedVideo} onOpenChange={(isOpen) => !isOpen && setSelectedVideo(null)}>
+        <div className="container mx-auto max-w-7xl px-4 md:px-6">
+            <div className="mx-auto max-w-3xl text-center">
+            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Media & Features</h2>
+            <p className="mt-4 text-muted-foreground md:text-xl/relaxed">
+                Watch product demos, installation tutorials, and see what the press is saying about InvisaCook.
+            </p>
+            </div>
+            <div className="mt-12 grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+            {itemsToShow.map((item) => <MediaItemCard key={item.title} item={item} onVideoSelect={setSelectedVideo} />)}
+            </div>
+            {!isPage && allMediaItems.length > 3 && (
+            <div className="mt-12 text-center">
+                <Button asChild variant="outline">
+                <Link href="/media">
+                    View All Media <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+                </Button>
+            </div>
+            )}
         </div>
-        <div className="mt-12 grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-          {itemsToShow.map((item) => <MediaItemCard key={item.title} item={item} />)}
-        </div>
-        {!isPage && allMediaItems.length > 3 && (
-          <div className="mt-12 text-center">
-            <Button asChild variant="outline">
-              <Link href="/media">
-                View All Media <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
+        {selectedVideo && selectedVideo.type === 'video' && (
+            <DialogContent className="max-w-4xl h-auto p-0 border-0">
+                <DialogTitle className="sr-only">{selectedVideo.title}</DialogTitle>
+                <div className="aspect-video">
+                <iframe
+                    src={`https://www.youtube.com/embed/${selectedVideo.videoId}?autoplay=1`}
+                    title={selectedVideo.title}
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="w-full h-full"
+                ></iframe>
+                </div>
+            </DialogContent>
         )}
-      </div>
+      </Dialog>
     </section>
   );
 }
