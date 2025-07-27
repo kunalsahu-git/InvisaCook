@@ -1,20 +1,12 @@
+
 "use client";
 
 import Image from "next/image";
 import { Facebook, Instagram, Youtube, PlayCircle } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "../ui/button";
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-
-const instagramPosts = [
-  { id: 1, img: "https://placehold.co/500x500.png", aiHint: "modern kitchen" },
-  { id: 2, img: "https://placehold.co/500x500.png", aiHint: "food preparation" },
-  { id: 3, img: "https://placehold.co/500x500.png", aiHint: "sleek design" },
-  { id: 4, img: "https://placehold.co/500x500.png", aiHint: "family dinner" },
-  { id: 5, img: "https://placehold.co/500x500.png", aiHint: "minimalist interior" },
-  { id: 6, img: "https://placehold.co/500x500.png", aiHint: "gourmet cooking" },
-];
 
 const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
     <svg
@@ -44,75 +36,33 @@ export function InstagramFeed() {
             See how our customers are revolutionizing their kitchens. Share your space with #InvisaCook.
           </p>
         </div>
-        <div className="mt-12 grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Instagram Feed */}
-            <div className="lg:col-span-2 border rounded-lg p-4 sm:p-6">
-                <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-4">
-                        <Avatar className="h-16 w-16 border">
-                             <AvatarImage src="https://placehold.co/100x100.png" alt="Invisacook Logo" data-ai-hint="company logo"/>
-                             <AvatarFallback>IC</AvatarFallback>
-                        </Avatar>
-                        <div>
-                            <p className="font-bold">invisa.cook</p>
-                            <p className="text-sm text-muted-foreground">Invisacook</p>
-                            <div className="flex gap-4 text-sm mt-1">
-                                <span><span className="font-bold">141</span> posts</span>
-                                <span><span className="font-bold">7,001</span> followers</span>
-                            </div>
-                        </div>
+        
+        <div className="mt-12 max-w-4xl mx-auto">
+             <Card>
+                <CardHeader className="text-center">
+                    <Instagram className="h-12 w-12 mx-auto text-pink-500" />
+                    <CardTitle className="mt-4">Live Instagram Feed</CardTitle>
+                    <CardDescription>
+                    Embed your live Instagram feed here to keep your content fresh and engaging.
+                    </CardDescription>
+                </CardHeader>
+                <CardContent className="text-center text-sm text-muted-foreground">
+                    <p>
+                    To add a live feed, you can use a third-party service like Elfsight or Juicer.
+                    These services will provide you with a code snippet to paste here.
+                    </p>
+                    <div className="mt-4 p-4 border-dashed border-2 rounded-lg bg-secondary">
+                    <p className="font-mono text-xs text-left">
+                        &lt;!-- Example Embed Code from Elfsight --&gt;<br />
+                        &lt;script src="https://apps.elfsight.com/p/platform.js" defer&gt;&lt;/script&gt;<br />
+                        &lt;div class="elfsight-app-a1b2c3d4-e5f6-a7b8-c9d0-e1f2a3b4c5d6"&gt;&lt;/div&gt;
+                    </p>
                     </div>
-                    <Instagram className="h-8 w-8 text-pink-500" />
-                </div>
-                <div className="grid grid-cols-3 gap-1">
-                    {instagramPosts.map((post) => (
-                        <div key={post.id} className="group relative block w-full overflow-hidden aspect-square">
-                            <Image
-                                src={post.img}
-                                alt="Instagram post featuring InvisaCook"
-                                width={300}
-                                height={300}
-                                className="w-full h-full object-cover"
-                                data-ai-hint={post.aiHint}
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            {/* Facebook Embed */}
-            <div className="border rounded-lg p-4 flex flex-col gap-4">
-                <div className="flex items-center gap-3">
-                    <div className="bg-gray-200 rounded-md p-2">
-                         <Avatar className="h-10 w-10 border">
-                             <AvatarImage src="https://placehold.co/100x100.png" alt="Invisacook Logo" data-ai-hint="company logo"/>
-                             <AvatarFallback>IC</AvatarFallback>
-                        </Avatar>
-                    </div>
-                    <div>
-                        <p className="font-semibold">InvisaCook</p>
-                        <p className="text-xs text-muted-foreground">3,386 followers</p>
-                    </div>
-                </div>
-                <div className="flex gap-2">
-                    <Button className="flex-1" variant="outline"><Facebook className="mr-2 h-4 w-4" /> Follow Page</Button>
-                    <Button className="flex-1" variant="secondary">Share</Button>
-                </div>
-                 <div className="aspect-w-9 aspect-h-16 w-full overflow-hidden rounded-lg relative">
-                    <Image
-                        src="https://placehold.co/400x711.png"
-                        alt="Facebook video"
-                        layout="fill"
-                        objectFit="cover"
-                        data-ai-hint="cooking video"
-                    />
-                    <div className="absolute inset-0 bg-black/20 flex items-center justify-center">
-                        <div className="bg-white/80 rounded-full p-4">
-                            <PlayCircle className="h-12 w-12 text-gray-800" />
-                        </div>
-                    </div>
-                 </div>
-            </div>
+                    <p className="mt-4">
+                    Simply replace the code in this component with the snippet from your chosen provider.
+                    </p>
+                </CardContent>
+            </Card>
         </div>
 
          <div className="mt-16 flex justify-center items-center gap-6">
