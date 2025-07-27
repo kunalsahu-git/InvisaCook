@@ -1,6 +1,7 @@
+
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
@@ -79,17 +80,79 @@ const allMediaItems = [
   }
 ];
 
-const ITEMS_PER_PAGE = 6;
+const MediaCard = ({ item }: { item: typeof allMediaItems[0] }) => (
+    <Card key={item.title} className="group overflow-hidden flex flex-col">
+        <CardContent className="p-0 flex-grow flex flex-col">
+        <Link href="#" className="block">
+            <div className="relative">
+            <Image
+                src={item.image}
+                alt={item.title}
+                width={600}
+                height={400}
+                className="h-auto w-full object-cover aspect-video transition-transform duration-300 group-hover:scale-105"
+                data-ai-hint={item.aiHint}
+            />
+            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                {item.type === "video" ? (
+                <PlayCircle className="h-16 w-16 text-white" />
+                ) : (
+                <LinkIcon className="h-16 w-16 text-white" />
+                )}
+            </div>
+                <Badge variant="secondary" className="absolute top-3 right-3">{item.category}</Badge>
+            </div>
+        </Link>
+        <div className="p-4 flex-grow flex flex-col">
+            <h3 className="font-semibold text-lg">{item.title}</h3>
+            <p className="text-sm text-muted-foreground mt-2 flex-grow">{item.description}</p>
+            {item.press && <p className="text-sm text-muted-foreground mt-2 pt-2 border-t">Featured on <span className="font-medium text-accent">{item.press}</span></p>}
+        </div>
+        </CardContent>
+    </Card>
+);
 
 export function MediaGallery({ isPage = false }: { isPage?: boolean }) {
-  const [visibleItems, setVisibleItems] = useState(ITEMS_PER_PAGE);
 
-  const handleLoadMore = () => {
-    setVisibleItems(prev => prev + ITEMS_PER_PAGE);
-  };
+  const groupedMedia = useMemo(() => {
+    return allMediaItems.reduce((acc, item) => {
+      const category = item.category || 'Uncategorized';
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(item);
+      return acc;
+    }, {} as Record<string, typeof allMediaItems>);
+  }, []);
+  
+  const categories = useMemo(() => Object.keys(groupedMedia), [groupedMedia]);
 
-  const itemsToShow = isPage ? allMediaItems.slice(0, visibleItems) : allMediaItems.slice(0, 3);
-  const canLoadMore = visibleItems < allMediaItems.length;
+  const itemsToShow = isPage ? allMediaItems : allMediaItems.slice(0, 3);
+
+  if (isPage) {
+    return (
+      <section id="media" className="w-full py-12 md:py-24 bg-background">
+        <div className="container mx-auto max-w-7xl px-4 md:px-6 space-y-16">
+           <div className="mx-auto max-w-3xl text-center">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Media & Features</h2>
+              <p className="mt-4 text-muted-foreground md:text-xl/relaxed">
+                Watch product demos, installation tutorials, and see what the press is saying about InvisaCook.
+              </p>
+            </div>
+
+          {categories.map(category => (
+            <div key={category}>
+              <h3 className="text-2xl font-bold tracking-tight mb-8 text-center">{category} Guides</h3>
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {groupedMedia[category].map((item) => <MediaCard key={item.title} item={item} />)}
+              </div>
+            </div>
+          ))}
+
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section id="media" className={cn("w-full py-12 md:py-24", isPage ? "bg-background" : "bg-secondary/50")}>
@@ -101,39 +164,9 @@ export function MediaGallery({ isPage = false }: { isPage?: boolean }) {
           </p>
         </div>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {itemsToShow.map((item) => (
-            <Card key={item.title} className="group overflow-hidden flex flex-col">
-              <CardContent className="p-0 flex-grow flex flex-col">
-                <Link href="#" className="block">
-                  <div className="relative">
-                    <Image
-                      src={item.image}
-                      alt={item.title}
-                      width={600}
-                      height={400}
-                      className="h-auto w-full object-cover aspect-video transition-transform duration-300 group-hover:scale-105"
-                      data-ai-hint={item.aiHint}
-                    />
-                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                      {item.type === "video" ? (
-                        <PlayCircle className="h-16 w-16 text-white" />
-                      ) : (
-                        <LinkIcon className="h-16 w-16 text-white" />
-                      )}
-                    </div>
-                     <Badge variant="secondary" className="absolute top-3 right-3">{item.category}</Badge>
-                  </div>
-                </Link>
-                <div className="p-4 flex-grow flex flex-col">
-                    <h3 className="font-semibold text-lg">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground mt-2 flex-grow">{item.description}</p>
-                    {item.press && <p className="text-sm text-muted-foreground mt-2 pt-2 border-t">Featured on <span className="font-medium text-accent">{item.press}</span></p>}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
+          {itemsToShow.map((item) => <MediaCard key={item.title} item={item} />)}
         </div>
-        {!isPage && !isPage && allMediaItems.length > 3 && (
+        {!isPage && allMediaItems.length > 3 && (
           <div className="mt-12 text-center">
             <Button asChild variant="outline">
               <Link href="/media">
@@ -142,13 +175,6 @@ export function MediaGallery({ isPage = false }: { isPage?: boolean }) {
             </Button>
           </div>
         )}
-        {isPage && canLoadMore && (
-           <div className="mt-12 text-center">
-             <Button onClick={handleLoadMore}>
-               Load More
-             </Button>
-           </div>
-         )}
       </div>
     </section>
   );
