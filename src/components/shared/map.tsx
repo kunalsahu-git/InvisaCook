@@ -2,7 +2,7 @@
 "use client"
 
 import 'leaflet/dist/leaflet.css';
-import L, { Icon, LatLngExpression, Map as LeafletMap } from 'leaflet';
+import L, { Icon, Map as LeafletMap } from 'leaflet';
 import { useEffect, useRef } from 'react';
 import type { Dealer } from '../sections/dealer-finder';
 
@@ -47,9 +47,25 @@ export const Map = ({ dealers, selectedDealer, setSelectedDealer }: { dealers: D
 
       // Add markers
       dealers.forEach(dealer => {
+        const popupContent = `
+            <div class="p-1 space-y-1">
+                <h3 class="font-bold text-base">${dealer.name}</h3>
+                <p class="text-sm">${dealer.email}</p>
+                <p class="text-sm">${dealer.address}</p>
+                <p class="text-sm">${dealer.phone}</p>
+                <a 
+                    href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(dealer.address)}" 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="text-blue-600 hover:underline font-semibold"
+                >
+                    Directions
+                </a>
+            </div>
+        `;
         const marker = L.marker([dealer.lat, dealer.lon], { icon: customIcon })
           .addTo(map)
-          .bindPopup(`<div class="font-bold">${dealer.name}</div>${dealer.address}`)
+          .bindPopup(popupContent)
           .on('click', () => {
             setSelectedDealer(dealer);
           });
