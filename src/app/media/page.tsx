@@ -1,6 +1,6 @@
 import { Header } from "@/components/shared/header";
 import { Footer } from "@/components/shared/footer";
-import { MediaGallery }s from "@/components/sections/media-gallery";
+import { MediaGallery } from "@/components/sections/media-gallery";
 import { InstagramFeed } from "@/components/sections/instagram-feed";
 
 export default function MediaPage() {
