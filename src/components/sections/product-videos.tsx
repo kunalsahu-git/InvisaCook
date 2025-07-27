@@ -5,7 +5,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { PlayCircle } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import type { Product } from "@/lib/products";
 
 function getThumbnailUrl(video: Product['videos'][0]) {
@@ -62,6 +62,7 @@ export function ProductVideos({ videos }: { videos: Product['videos'] }) {
                     </div>
                      {selectedVideo && (
                         <DialogContent className="max-w-4xl h-auto p-0 border-0">
+                            <DialogTitle className="sr-only">{selectedVideo.title}</DialogTitle>
                             <div className="aspect-video">
                                 {selectedVideo.videoSrc ? (
                                      <video
