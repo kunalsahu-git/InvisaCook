@@ -1,3 +1,4 @@
+
 import { Header } from "@/components/shared/header";
 import { Footer } from "@/components/shared/footer";
 import { Button } from "@/components/ui/button";
@@ -34,19 +35,22 @@ export default function CartPage() {
                   <CardContent className="p-0">
                     <ul className="divide-y">
                       {cartItems.map(product => (
-                        <li key={product.slug} className="flex items-center gap-4 p-4">
-                          <Image src={product.images[0].src} alt={product.title} width={100} height={100} className="rounded-md object-cover" />
-                          <div className="flex-1">
+                        <li key={product.slug} className="flex flex-col sm:flex-row items-start sm:items-center gap-4 p-4">
+                          <Image src={product.images[0].src} alt={product.title} width={100} height={100} className="rounded-md object-cover flex-shrink-0" />
+                          <div className="flex-1 grid gap-2">
                             <h3 className="font-semibold">{product.title}</h3>
-                            <p className="text-sm text-muted-foreground">${product.price.toFixed(2)}</p>
+                            <p className="text-sm text-muted-foreground sm:hidden">${product.price.toFixed(2)}</p>
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                    <Button variant="outline" size="icon" className="h-8 w-8"><Minus className="h-4 w-4" /></Button>
+                                    <span className="w-8 text-center">{product.quantity}</span>
+                                    <Button variant="outline" size="icon" className="h-8 w-8"><Plus className="h-4 w-4" /></Button>
+                                </div>
+                                <p className="font-semibold text-right sm:hidden">${(product.price * product.quantity).toFixed(2)}</p>
+                            </div>
                           </div>
-                          <div className="flex items-center gap-2">
-                             <Button variant="outline" size="icon" className="h-8 w-8"><Minus className="h-4 w-4" /></Button>
-                             <span className="w-8 text-center">{product.quantity}</span>
-                             <Button variant="outline" size="icon" className="h-8 w-8"><Plus className="h-4 w-4" /></Button>
-                          </div>
-                          <p className="font-semibold w-20 text-right">${(product.price * product.quantity).toFixed(2)}</p>
-                           <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive"><Trash2 className="h-4 w-4" /></Button>
+                           <p className="font-semibold w-20 text-right hidden sm:block">${(product.price * product.quantity).toFixed(2)}</p>
+                           <Button variant="ghost" size="icon" className="text-muted-foreground hover:text-destructive self-end sm:self-center"><Trash2 className="h-4 w-4" /></Button>
                         </li>
                       ))}
                     </ul>
