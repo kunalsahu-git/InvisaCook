@@ -152,8 +152,8 @@ const Sidebar = React.forwardRef<
     <aside
       ref={ref}
       className={cn(
-        "hidden sm:flex flex-col fixed inset-y-0 z-20 h-full w-[var(--sidebar-width)] bg-sidebar text-sidebar-foreground border-r transition-all duration-300 ease-in-out",
-        !open && "w-[var(--sidebar-width-icon)]",
+        "hidden sm:flex flex-col fixed inset-y-0 z-20 h-full bg-sidebar text-sidebar-foreground border-r transition-all duration-300 ease-in-out",
+        open ? "w-[var(--sidebar-width)]" : "w-[var(--sidebar-width-icon)]",
         className
       )}
       {...props}
@@ -212,7 +212,7 @@ const SidebarContent = React.forwardRef<
       ref={ref}
       data-sidebar="content"
       className={cn(
-        "flex min-h-0 flex-1 flex-col gap-2 overflow-auto",
+        "flex min-h-0 flex-1 flex-col gap-2 overflow-auto p-3",
         className
       )}
       {...props}
@@ -228,7 +228,7 @@ const SidebarMenu = React.forwardRef<
   <ul
     ref={ref}
     data-sidebar="menu"
-    className={cn("flex w-full min-w-0 flex-col gap-1 px-2", className)}
+    className={cn("flex w-full min-w-0 flex-col gap-1", className)}
     {...props}
   />
 ))
@@ -305,7 +305,7 @@ const SidebarMenuButton = React.forwardRef<
         {React.Children.map(children, (child) => {
             if (React.isValidElement(child) && child.type === 'span') {
                 return React.cloneElement(child as React.ReactElement, {
-                    className: cn("transition-all duration-200", open ? "opacity-100 w-auto" : "opacity-0 w-0"),
+                    className: cn("transition-all duration-200", open ? "w-auto opacity-100" : "w-0 opacity-0"),
                 });
             }
             return child;

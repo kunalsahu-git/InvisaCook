@@ -57,7 +57,7 @@ export default function AdminLayout({
               <SidebarMenuItem>
                 <SidebarMenuButton asChild tooltip="Dashboard">
                   <Link href="/admin/dashboard">
-                    <Home />
+                    <Home className="h-4 w-4" />
                     <span>Dashboard</span>
                   </Link>
                 </SidebarMenuButton>
@@ -65,7 +65,7 @@ export default function AdminLayout({
               <SidebarMenuItem>
                 <SidebarMenuButton asChild tooltip="Products">
                   <Link href="/admin/products">
-                    <Package />
+                    <Package className="h-4 w-4" />
                      <span>Products</span>
                   </Link>
                 </SidebarMenuButton>
@@ -73,7 +73,7 @@ export default function AdminLayout({
               <SidebarMenuItem>
                 <SidebarMenuButton asChild tooltip="Orders">
                   <Link href="/admin/orders">
-                    <ShoppingCart />
+                    <ShoppingCart className="h-4 w-4" />
                      <span>Orders</span>
                   </Link>
                 </SidebarMenuButton>
@@ -81,7 +81,7 @@ export default function AdminLayout({
               <SidebarMenuItem>
                 <SidebarMenuButton asChild tooltip="Analytics">
                   <Link href="/admin/analytics">
-                    <LineChart />
+                    <LineChart className="h-4 w-4" />
                      <span>Analytics</span>
                   </Link>
                 </SidebarMenuButton>
@@ -93,7 +93,7 @@ export default function AdminLayout({
                  <SidebarMenuItem>
                     <SidebarMenuButton asChild tooltip="Settings">
                         <Link href="#">
-                            <Settings />
+                            <Settings className="h-4 w-4" />
                              <span>Settings</span>
                         </Link>
                     </SidebarMenuButton>
