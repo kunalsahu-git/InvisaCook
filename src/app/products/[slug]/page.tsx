@@ -1,4 +1,8 @@
 
+
+"use client";
+
+import { useState } from "react";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/shared/header";
 import { Footer } from "@/components/shared/footer";
@@ -11,12 +15,16 @@ import Image from "next/image";
 import { ProductPageContent } from "@/components/shared/product-page-content";
 import { Button } from "@/components/ui/button";
 import { getProductBySlug, getAllProducts, Product, productData } from "@/lib/products";
-
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 function ProductVideos({ videos }: { videos: Product['videos'] }) {
+    const [selectedVideo, setSelectedVideo] = useState<Product['videos'][0] | null>(null);
+
     if (!videos || videos.length === 0) {
         return null;
     }
+
+    const getThumbnailUrl = (videoId: string) => `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
     return (
         <section className="w-full py-12 md:py-24 lg:py-32 border-t bg-background">
@@ -27,33 +35,49 @@ function ProductVideos({ videos }: { videos: Product['videos'] }) {
                         Watch product demos, feature showcases, and installation guides.
                     </p>
                 </div>
-                <div className="mt-12 grid gap-6 sm:grid-cols-1 lg:grid-cols-2">
-                    {videos.map((video) => (
-                        <Card key={video.id} className="group overflow-hidden">
-                            <CardContent className="p-0">
-                                <Link href="#" className="block relative">
-                                    <Image
-                                        src={video.thumbnail}
-                                        alt={video.title}
-                                        width={600}
-                                        height={400}
-                                        className="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                        data-ai-hint={video.aiHint}
-                                    />
-                                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                        <PlayCircle className="h-16 w-16 text-white" />
+                <Dialog open={!!selectedVideo} onOpenChange={(isOpen) => !isOpen && setSelectedVideo(null)}>
+                    <div className="mt-12 grid gap-6 sm:grid-cols-1 lg:grid-cols-2">
+                        {videos.map((video) => (
+                             <Card key={video.id} className="group overflow-hidden">
+                                <CardContent className="p-0">
+                                    <button onClick={() => setSelectedVideo(video)} className="block relative w-full text-left">
+                                        <Image
+                                            src={getThumbnailUrl(video.videoId)}
+                                            alt={video.title}
+                                            width={600}
+                                            height={400}
+                                            className="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                            data-ai-hint={video.aiHint}
+                                        />
+                                        <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                            <PlayCircle className="h-16 w-16 text-white" />
+                                        </div>
+                                        <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded-md text-xs">
+                                            {video.duration}
+                                        </div>
+                                    </button>
+                                    <div className="p-4">
+                                        <h3 className="font-semibold text-lg">{video.title}</h3>
                                     </div>
-                                    <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded-md text-xs">
-                                        {video.duration}
-                                    </div>
-                                </Link>
-                                <div className="p-4">
-                                    <h3 className="font-semibold text-lg">{video.title}</h3>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    ))}
-                </div>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                     {selectedVideo && (
+                        <DialogContent className="max-w-4xl h-auto p-0 border-0">
+                            <div className="aspect-video">
+                                <iframe
+                                    src={`https://www.youtube.com/embed/${selectedVideo.videoId}?autoplay=1`}
+                                    title={selectedVideo.title}
+                                    frameBorder="0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    className="w-full h-full"
+                                ></iframe>
+                            </div>
+                        </DialogContent>
+                    )}
+                </Dialog>
             </div>
         </section>
     );
@@ -99,8 +123,7 @@ function ProductDownloads({ documents }: { documents: Product['documents'] }) {
     );
 }
 
-
-export default function ProductDetailPage({
+function ProductDetailPage({
   params,
 }: {
   params: { slug: string };
@@ -128,6 +151,8 @@ export default function ProductDetailPage({
     </div>
   );
 }
+
+export default ProductDetailPage;
 
 export function generateStaticParams() {
   const products = getAllProducts();

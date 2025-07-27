@@ -1,4 +1,5 @@
 
+
 export const productData = {
   "invisacook-burners": {
     title: "InvisaCook Burners",
@@ -27,8 +28,8 @@ export const productData = {
       { label: "Safety", value: "Auto-Shutoff, Pan Detection, Child Lock" },
     ],
     videos: [
-        { id: '1', title: 'See the InvisaCook in Action', thumbnail: 'https://i.ytimg.com/vi/ImjA1KTw7KA/hqdefault.jpg', aiHint: 'cooking demo', duration: '2:34' },
-        { id: '2', title: 'Installation on Granite Countertops', thumbnail: 'https://placehold.co/600x400.png', aiHint: 'kitchen installation', duration: '8:12' },
+        { id: '1', videoId: 'ImjA1KTw7KA', title: 'See the InvisaCook in Action', aiHint: 'cooking demo', duration: '2:34' },
+        { id: '2', videoId: 'dQw4w9WgXcQ', title: 'Installation on Granite Countertops', aiHint: 'kitchen installation', duration: '8:12' },
     ],
     documents: [
       { id: 1, title: "4-Burner Installation Manual", description: "Complete guide to installing the 4-burner model.", type: "Manual", language: "English" },
@@ -67,7 +68,7 @@ export const productData = {
       { label: "Special Feature", value: "Integrated Countertop Riser" },
     ],
     videos: [
-        { id: '3', title: 'The Difference of 5-Ply Cookware', thumbnail: 'https://placehold.co/600x400.png', aiHint: 'product feature', duration: '4:05' },
+        { id: '3', videoId: 'vx2u5uUu3DE', title: 'The Difference of 5-Ply Cookware', aiHint: 'product feature', duration: '4:05' },
     ],
     documents: [
       { id: 2, title: "InvisaCookware Care Guide", description: "How to maintain your cookware for a lifetime of use.", type: "Guide", language: "English" },
@@ -125,7 +126,7 @@ export const productData = {
       { label: "Power Output", value: "5W, 7.5W, 10W, 15W" },
     ],
     videos: [
-        { id: '4', title: 'Charge Through Stone: A Demo', thumbnail: 'https://placehold.co/600x400.png', aiHint: 'technology demo', duration: '1:45' },
+        { id: '4', videoId: 'E9oKEJ1p_wI', title: 'Charge Through Stone: A Demo', aiHint: 'technology demo', duration: '1:45' },
     ],
     documents: [
        { id: 3, title: "InvisaCharge Spec Sheet", description: "Technical specifications for the InvisaCharge unit.", type: "Spec Sheet", language: "English" },
@@ -181,8 +182,8 @@ export type Product = {
   }[];
   videos: {
     id: string;
+    videoId: string;
     title: string;
-    thumbnail: string;
     aiHint: string;
     duration: string;
   }[];
