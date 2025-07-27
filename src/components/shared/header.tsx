@@ -1,10 +1,11 @@
+
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Menu, CookingPot, ShoppingCart } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -32,7 +33,7 @@ export function Header() {
 
         <nav className="hidden md:flex md:items-center md:gap-6 text-sm font-medium">
           {navItems.map((item) => {
-            const isActive = item.href === "/" ? pathname === item.href : pathname.startsWith(item.href);
+            const isActive = item.href === "/" ? pathname === item.href : pathname.startsWith(item.href) && item.href !== "/";
             return (
               <Link 
                 key={item.label} 
@@ -66,6 +67,10 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
+              <SheetHeader className="sr-only">
+                  <SheetTitle>Mobile Menu</SheetTitle>
+                  <SheetDescription>Main navigation links for the InvisaCook website.</SheetDescription>
+              </SheetHeader>
               <div className="flex flex-col gap-6 p-6">
                 <Link href="/" className="flex items-center gap-2 font-bold" onClick={() => setIsOpen(false)}>
                   <CookingPot className="h-6 w-6 text-accent" />
@@ -73,7 +78,7 @@ export function Header() {
                 </Link>
                 <nav className="grid gap-4">
                   {navItems.map((item) => {
-                     const isActive = item.href === "/" ? pathname === item.href : pathname.startsWith(item.href);
+                     const isActive = item.href === "/" ? pathname === item.href : pathname.startsWith(item.href) && item.href !== "/";
                     return (
                       <Link
                         key={item.label}
