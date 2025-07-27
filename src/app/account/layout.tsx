@@ -1,10 +1,14 @@
 
+"use client";
+
+import { usePathname } from 'next/navigation';
 import { Header } from "@/components/shared/header";
 import { Footer } from "@/components/shared/footer";
 import { Card } from "@/components/ui/card";
 import Link from "next/link";
 import { Package, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from '@/lib/utils';
 
 const accountNav = [
     { name: 'My Orders', href: '/account/orders', icon: Package },
@@ -16,6 +20,8 @@ export default function AccountLayout({
 }: {
   children: React.ReactNode
 }) {
+  const pathname = usePathname();
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
@@ -25,14 +31,17 @@ export default function AccountLayout({
                <aside className="md:col-span-1 no-print">
                    <Card className="p-4">
                         <nav className="flex flex-col gap-2">
-                           {accountNav.map(item => (
-                                <Button asChild key={item.name} variant="ghost" className="justify-start">
+                           {accountNav.map(item => {
+                                const isActive = pathname.startsWith(item.href);
+                                return (
+                                <Button asChild key={item.name} variant={isActive ? "secondary" : "ghost"} className="justify-start">
                                     <Link href={item.href}>
                                         <item.icon className="mr-2 h-4 w-4" />
                                         {item.name}
                                     </Link>
                                 </Button>
-                           ))}
+                           )}
+                           )}
                             <Button variant="ghost" className="justify-start text-destructive hover:text-destructive">
                                 <LogOut className="mr-2 h-4 w-4" />
                                 Sign Out
