@@ -48,7 +48,7 @@ export function Header() {
         <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
             <div className="flex h-16 items-center container max-w-7xl px-4 md:px-6 justify-between">
                  <Link href="/" className="flex items-center gap-2 font-bold" aria-label="InvisaCook Home">
-                    <Image src="https://placehold.co/140x35.png" alt="InvisaCook Logo" width={140} height={35} data-ai-hint="company logo" />
+                    <Image src="/images/INV_logo.png" alt="InvisaCook Logo" width={140} height={20} data-ai-hint="company logo" />
                 </Link>
             </div>
       </header>
@@ -63,7 +63,7 @@ export function Header() {
         <div className="flex items-center gap-2">
             {isAdminRoute && <AdminHeaderActions />}
             <Link href="/" className="flex items-center gap-2 font-bold" aria-label="InvisaCook Home">
-              <Image src="https://placehold.co/140x35.png" alt="InvisaCook Logo" width={140} height={35} data-ai-hint="company logo" />
+              <Image src="/images/INV_logo.png" alt="InvisaCook Logo" width={100} height={20} data-ai-hint="company logo" />
             </Link>
         </div>
 

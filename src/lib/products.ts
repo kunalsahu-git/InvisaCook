@@ -8,10 +8,12 @@ export const productData = {
     description:
       "The core of the InvisaCook system. These powerful induction elements mount directly beneath your countertop, creating a completely invisible and versatile cooking surface. Experience the magic of cooking directly on your porcelain or granite countertop.",
     images: [
-      { src: "https://placehold.co/800x800.png", alt: "InvisaCook Burners on a countertop", aiHint: "kitchen countertop" },
-      { src: "https://placehold.co/800x800.png", alt: "Close-up of InvisaCook controls", aiHint: "touch controls" },
-      { src: "https://placehold.co/800x800.png", alt: "Undermount view of InvisaCook installation", aiHint: "product installation" },
-      { src: "https://placehold.co/800x800.png", alt: "Cooking with InvisaCook", aiHint: "active cooking" },
+      { src: "/images/products/invisiacookware-5-piece-riser.set-1.avif", alt: "InvisaCook Burners on a countertop", aiHint: "kitchen countertop" },
+      { src: "/images/products/invisiacookware-5-piece-riser.set-2.avif", alt: "Close-up of InvisaCook controls", aiHint: "touch controls" },
+      { src: "/images/products/invisiacookware-5-piece-riser.set-3.avif", alt: "Undermount view of InvisaCook installation", aiHint: "product installation" },
+      { src: "/images/products/invisiacookware-5-piece-riser.set-4.avif", alt: "Cooking with InvisaCook", aiHint: "active cooking" },
+      { src: "/images/products/invisiacookware-5-piece-riser.set-5.avif", alt: "Cooking with InvisaCook", aiHint: "active cooking" }
+
     ],
     features: [
       { icon: 'Flame', text: "Available in 1 to 4 burner configurations" },
@@ -25,7 +27,7 @@ export const productData = {
       { label: "Safety", value: "Auto-Shutoff, Pan Detection, Child Lock" },
     ],
     videos: [
-        { id: '1', title: 'See the InvisaCook in Action', thumbnail: 'https://placehold.co/600x400.png', aiHint: 'cooking demo', duration: '2:34' },
+        { id: '1', title: 'See the InvisaCook in Action', thumbnail: 'https://youtu.be/ImjA1KTw7KA', aiHint: 'cooking demo', duration: '2:34' },
         { id: '2', title: 'Installation on Granite Countertops', thumbnail: 'https://placehold.co/600x400.png', aiHint: 'kitchen installation', duration: '8:12' },
     ],
     documents: [
@@ -42,10 +44,14 @@ export const productData = {
     description:
       "Engineered for maximum performance and to protect your valuable countertop. Our 5-ply copper core cookware ensures even heat distribution, while the proprietary riser system elevates the pan just enough to prevent scorching and optimize induction transfer.",
     images: [
-      { src: "https://placehold.co/800x800.png", alt: "Full InvisaCookware set", aiHint: "cookware set" },
-      { src: "https://placehold.co/800x800.png", alt: "Close-up of a pot from the set", aiHint: "stainless steel pot" },
-      { src: "https://placehold.co/800x800.png", alt: "Bottom of a pan showing copper core", aiHint: "copper pan" },
-      { src: "https://placehold.co/800x800.png", alt: "Cookware in action on an InvisaCook surface", aiHint: "cooking pot" },
+      { src: "/images/products/invisiacookware-10-piece-riser.set-1.avif", alt: "Full InvisaCookware set", aiHint: "cookware set" },
+      { src: "/images/products/invisiacookware-10-piece-riser.set-2.avif", alt: "Close-up of a pot from the set", aiHint: "stainless steel pot" },
+      { src: "/images/products/invisiacookware-10-piece-riser.set-3.avif", alt: "Bottom of a pan showing copper core", aiHint: "copper pan" },
+      { src: "/images/products/invisiacookware-10-piece-riser.set-4.avif", alt: "Cookware in action on an InvisaCook surface", aiHint: "cooking pot" },
+      { src: "/images/products/invisiacookware-10-piece-riser.set-5.avif", alt: "Cookware in action on an InvisaCook surface", aiHint: "cooking pot" },
+      { src: "/images/products/invisiacookware-10-piece-riser.set-6.avif", alt: "Cookware in action on an InvisaCook surface", aiHint: "cooking pot" }
+
+
     ],
     features: [
       { icon: 'Layers', text: "5-Ply Copper Core construction for even heating" },
@@ -75,9 +81,10 @@ export const productData = {
     description:
       "The essential accessory for your InvisaCook system. This proprietary silicone mat ensures proper heat diffusion, protects the countertop surface from scratches, and helps indicate the active cooking zone. It's the perfect blend of safety and functionality.",
     images: [
-      { src: "https://placehold.co/800x800.png", alt: "InvisaMat on a countertop", aiHint: "silicone mat" },
-      { src: "https://placehold.co/800x800.png", alt: "Close-up of the InvisaMat texture", aiHint: "silicone texture" },
-      { src: "https://placehold.co/800x800.png", alt: "InvisaMat being cleaned", aiHint: "kitchen cleaning" },
+      { src: "/images/products/InvisaMAT-1.avif", alt: "/InvisaMat on a countertop", aiHint: "silicone mat" },
+      { src: "/images/products/InvisaMAT-2.avif", alt: "Close-up of the InvisaMat texture", aiHint: "silicone texture" },
+      { src: "/images/products/InvisaMAT-3.avif", alt: "/InvisaMat being cleaned", aiHint: "kitchen cleaning" },
+      { src: "/images/products/InvisaMAT-4.avif", alt: "InvisaMat being cleaned", aiHint: "kitchen cleaning" }
     ],
     features: [
       { icon: 'Sun', text: "Optimizes heat transfer for efficient cooking" },
@@ -100,9 +107,9 @@ export const productData = {
     description:
       "Declutter your kitchen with our through-surface wireless charger. Like the InvisaCook, the InvisaCharge mounts invisibly under your countertop, providing a powerful Qi charging station that works through up to 5cm of stone.",
     images: [
-        { src: "https://placehold.co/800x800.png", alt: "Phone charging on countertop with InvisaCharge", aiHint: "wireless charging" },
-        { src: "https://placehold.co/800x800.png", alt: "Underside view of the InvisaCharge unit", aiHint: "charger installation" },
-        { src: "https://placehold.co/800x800.png", alt: "Diagram showing charging through stone", aiHint: "technology diagram" },
+        { src: "/images/products/InvisaCharge-1.avif", alt: "Phone charging on countertop with InvisaCharge", aiHint: "wireless charging" },
+        { src: "/images/products/InvisaCharge-2.avif", alt: "Underside view of the InvisaCharge unit", aiHint: "charger installation" },
+        { src: "/images/products/InvisaCharge-3.avif", alt: "Diagram showing charging through stone", aiHint: "technology diagram" }
     ],
     features: [
       {

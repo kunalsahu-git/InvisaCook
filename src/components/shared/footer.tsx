@@ -26,10 +26,13 @@ export function Footer() {
     <footer className="bg-primary text-primary-foreground">
       <div className="container mx-auto grid grid-cols-1 gap-8 px-4 py-12 md:grid-cols-4 md:px-6">
         <div>
-          <h3 className="text-lg font-semibold uppercase tracking-wider text-accent">InvisaCook</h3>
-          <p className="mt-2 text-sm text-primary-foreground/80">
-            Invisible cooking technology for modern homes.
-          </p>
+          <Image 
+                src="/images/logo_tag.png"
+                alt="Made in the USA"
+                width={200}
+                height={150}
+                data-ai-hint="usa badge"
+            />
            <div className="mt-4 flex space-x-4">
               <Button variant="ghost" size="icon" className="h-8 w-8 text-primary-foreground/80 hover:bg-accent/20 hover:text-accent" asChild>
                 <Link href="#" aria-label="Instagram"><Instagram className="h-5 w-5" /></Link>
@@ -62,7 +65,8 @@ export function Footer() {
               <li className="text-sm text-primary-foreground/80">+1 386-263-8578</li>
             </ul>
           </div>
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-around">
+
             <Image 
                 src="/images/usa-badge.png"
                 alt="Made in the USA"
@@ -70,6 +74,7 @@ export function Footer() {
                 height={120}
                 data-ai-hint="usa badge"
             />
+            
           </div>
         </div>
       </div>

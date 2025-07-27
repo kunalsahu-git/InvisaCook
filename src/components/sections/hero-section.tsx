@@ -11,7 +11,7 @@ export function HeroSection() {
           muted
           playsInline
           className="w-full h-full object-cover brightness-50"
-          src="https://videos.pexels.com/video-files/4321111/4321111-hd_1920_1080_25fps.mp4"
+          src="/videos/intro.mp4"
         >
             Your browser does not support the video tag.
         </video>

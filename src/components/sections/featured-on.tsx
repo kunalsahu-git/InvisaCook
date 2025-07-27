@@ -13,14 +13,14 @@ import {
 
 
 const logos = [
-  { name: "Magnolia", width: 180, height: 40, dataAiHint: "magnolia logo" },
-  { name: "Food Network", width: 120, height: 60, dataAiHint: "food network logo" },
-  { name: "The Washington Post", width: 220, height: 40, dataAiHint: "washington post logo" },
-  { name: "HGTV", width: 120, height: 60, dataAiHint: "hgtv logo" },
-  { name: "Robb Report", width: 200, height: 40, dataAiHint: "robb report logo" },
-  { name: "RV Pro", width: 150, height: 50, dataAiHint: "rv pro logo" },
-  { name: "The Kitchn", width: 160, height: 40, dataAiHint: "the kitchn logo" },
-  { name: "Azure", width: 160, height: 40, dataAiHint: "azure logo" },
+  { name: "Magnolia", width: 180, height: 40, dataAiHint: "magnolia logo", logo: "/images/featured/magnolia_logo.webp" },
+  { name: "Food Network", width: 120, height: 60, dataAiHint: "food network logo" , logo: "/images/featured/foodnetwork.png" },
+  { name: "The Washington Post", width: 220, height: 40, dataAiHint: "washington post logo" , logo: "/images/featured/washington.png" },
+  { name: "HGTV", width: 120, height: 60, dataAiHint: "hgtv logo", logo: "/images/featured/HGTV_logo.png" },
+  { name: "Robb Report", width: 200, height: 40, dataAiHint: "robb report logo", logo: "/images/featured/robb.png" },
+  { name: "RV Pro", width: 150, height: 50, dataAiHint: "rv pro logo", logo: "/images/featured/magnolia_logo.webp" },
+  { name: "The Kitchn", width: 160, height: 40, dataAiHint: "the kitchn logo", logo: "/images/featured/kitchnlogo.png" },
+  // { name: "Azure", width: 160, height: 40, dataAiHint: "azure logo", logo: "/images/featured/k.webp" },
 ];
 
 export function FeaturedOn() {
@@ -47,7 +47,7 @@ export function FeaturedOn() {
                     {logos.map((logo) => (
                     <CarouselItem key={logo.name} className="basis-1/3 md:basis-1/4 lg:basis-1/6 flex items-center justify-center">
                         <Image
-                            src={`https://placehold.co/${logo.width}x${logo.height}.png`}
+                            src={logo.logo}
                             alt={logo.name}
                             width={logo.width}
                             height={logo.height}

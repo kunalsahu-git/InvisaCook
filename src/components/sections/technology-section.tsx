@@ -44,14 +44,18 @@ export function TechnologySection() {
           </div>
         </div>
         <div className="relative flex flex-col items-center justify-center space-y-4 rounded-xl p-4">
-          <Image
-            src="https://placehold.co/600x400.png"
+          <video
+            autoPlay
+            loop
+            muted
+            controls
+            playsInline
             width={600}
             height={400}
-            alt="Diagram of InvisaCook technology"
-            className="w-full max-w-md rounded-lg shadow-2xl"
+            className="w-full h-full object-cover brightness-50"
             data-ai-hint="technology diagram"
-          />
+            src="/videos/intro.mp4"
+          ></video>
            <div className="text-center">
             <h3 className="font-semibold">Cross-Section View</h3>
              <p className="text-sm text-muted-foreground">1. Cookware  2. Countertop  3. InvisaCook Unit</p>
