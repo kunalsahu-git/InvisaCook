@@ -1,9 +1,15 @@
 
 import Link from "next/link";
-import { Download, FileText } from "lucide-react";
+import { Download, FileText, File, FileType } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import type { Product } from "@/lib/products";
+
+const iconMap: { [key: string]: React.ElementType } = {
+    pdf: FileText,
+    doc: File,
+    default: File,
+}
 
 export function ProductDownloads({ documents }: { documents: Product['documents'] }) {
     if (!documents || documents.length === 0) {
@@ -20,10 +26,12 @@ export function ProductDownloads({ documents }: { documents: Product['documents'
                     </p>
                 </div>
                 <div className="mt-12 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-                    {documents.map((doc) => (
+                    {documents.map((doc) => {
+                        const Icon = iconMap[doc.fileType] || iconMap.default;
+                        return (
                          <Card key={doc.id} className="text-center flex flex-col">
                             <CardContent className="p-6 flex flex-col items-center gap-4 flex-grow">
-                                <FileText className="h-16 w-16 text-accent" />
+                                <Icon className="h-16 w-16 text-accent" />
                                 <h3 className="font-semibold text-lg">{doc.title}</h3>
                                 <p className="text-sm text-muted-foreground flex-grow">{doc.description}</p>
                                 <Button variant="outline" size="sm" asChild className="mt-auto w-full">
@@ -34,7 +42,7 @@ export function ProductDownloads({ documents }: { documents: Product['documents'
                                 </Button>
                             </CardContent>
                         </Card>
-                    ))}
+                    )})}
                 </div>
             </div>
         </section>

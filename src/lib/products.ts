@@ -32,9 +32,9 @@ export const productData = {
         { id: '5', videoSrc: '/videos/intro.mp4', title: 'Local Video Demo', aiHint: 'cooking demo', duration: '0:30', category: 'Product Demo' },
     ],
     documents: [
-      { id: 1, title: "4-Burner Installation Manual", description: "Complete guide to installing the 4-burner model.", type: "Manual", language: "English" },
-      { id: 4, title: "Manual de Instalación (2 Quemadores)", description: "Guía de instalación para el modelo de 2 quemadores.", type: "Manual", language: "Spanish" },
-      { id: 6, title: "Guide d'installation de la table de cuisson", description: "Instructions complètes pour tous les modèles.", type: "Guide", language: "French" },
+      { id: 1, title: "4-Burner Installation Manual", description: "Complete guide to installing the 4-burner model.", type: "Manual", language: "English", fileType: "pdf" },
+      { id: 4, title: "Manual de Instalación (2 Quemadores)", description: "Guía de instalación para el modelo de 2 quemadores.", type: "Manual", language: "Spanish", fileType: "pdf" },
+      { id: 6, title: "Guide d'installation de la table de cuisson", description: "Instructions complètes pour tous les modèles.", type: "Guide", language: "French", fileType: "pdf" },
     ]
   },
   "invisacookware-sets": {
@@ -71,7 +71,7 @@ export const productData = {
         { id: '3', videoId: 'vx2u5uUu3DE', title: 'The Difference of 5-Ply Cookware', aiHint: 'product feature', duration: '4:05', category: 'Product Feature' },
     ],
     documents: [
-      { id: 2, title: "InvisaCookware Care Guide", description: "How to maintain your cookware for a lifetime of use.", type: "Guide", language: "English" },
+      { id: 2, title: "InvisaCookware Care Guide", description: "How to maintain your cookware for a lifetime of use.", type: "Guide", language: "English", fileType: "pdf" },
     ]
   },
   invisamat: {
@@ -129,7 +129,7 @@ export const productData = {
         { id: '4', videoId: 'E9oKEJ1p_wI', title: 'Charge Through Stone: A Demo', aiHint: 'technology demo', duration: '1:45', category: 'Product Demo' },
     ],
     documents: [
-       { id: 3, title: "InvisaCharge Spec Sheet", description: "Technical specifications for the InvisaCharge unit.", type: "Spec Sheet", language: "English" },
+       { id: 3, title: "InvisaCharge Spec Sheet", description: "Technical specifications for the InvisaCharge unit.", type: "Spec Sheet", language: "English", fileType: "doc" },
     ]
   },
   invisarail: {
@@ -156,7 +156,7 @@ export const productData = {
     ],
     videos: [],
     documents: [
-        { id: 5, title: "InvisaRail Technical Drawing", description: "Detailed dimensions and specs for the InvisaRail.", type: "Spec Sheet", language: "English" },
+        { id: 5, title: "InvisaRail Technical Drawing", description: "Detailed dimensions and specs for the InvisaRail.", type: "Spec Sheet", language: "English", fileType: "pdf" },
     ]
   },
 };
@@ -195,6 +195,7 @@ export type Product = {
     description: string;
     type: string;
     language: string;
+    fileType: 'pdf' | 'doc';
   }[];
 };
 
