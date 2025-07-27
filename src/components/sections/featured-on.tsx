@@ -25,7 +25,7 @@ const logos = [
 
 export function FeaturedOn() {
   const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: true })
+    Autoplay({ delay: 2000, stopOnInteraction: false, stopOnMouseEnter: true })
   )
 
   return (
@@ -38,8 +38,6 @@ export function FeaturedOn() {
             <Carousel
                 plugins={[plugin.current]}
                 className="w-full"
-                onMouseEnter={plugin.current.stop}
-                onMouseLeave={plugin.current.reset}
                 opts={{
                     align: "start",
                     loop: true,
