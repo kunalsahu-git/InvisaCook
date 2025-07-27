@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
 import { Menu, CookingPot, ShoppingCart, PanelLeft, User } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useSidebar } from "@/components/ui/sidebar";
+import { useSidebar } from "@/hooks/use-sidebar";
 
 function AdminHeaderActions() {
     const { toggleSidebar } = useSidebar();
@@ -69,9 +69,9 @@ export function Header() {
         <div className="flex items-center gap-2">
           {!isAdminRoute && (
              <Button asChild variant="ghost" size="icon">
-                <Link href="/login">
+                <Link href="/account/profile">
                   <User className="h-6 w-6" />
-                  <span className="sr-only">Login</span>
+                  <span className="sr-only">My Account</span>
                 </Link>
             </Button>
           )}
@@ -118,7 +118,7 @@ export function Header() {
                     })}
                     </nav>
                     <Button asChild variant="outline">
-                        <Link href="/login" onClick={() => setIsOpen(false)}>Login</Link>
+                        <Link href="/account/profile" onClick={() => setIsOpen(false)}>My Account</Link>
                     </Button>
                 </div>
                 </SheetContent>
