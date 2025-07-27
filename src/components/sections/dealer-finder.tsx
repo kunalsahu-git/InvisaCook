@@ -7,9 +7,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
 import { MapPin, Search, Mail, Phone, Link as LinkIcon, ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { Map } from "../shared/map";
-import { Button } from "../ui/button";
 import { cn } from "@/lib/utils";
+import dynamic from 'next/dynamic';
 
 const dealers = [
     {
@@ -60,6 +59,12 @@ const dealers = [
 ]
 
 export type Dealer = typeof dealers[0];
+
+const Map = dynamic(() => import('../shared/map').then((mod) => mod.Map), {
+  ssr: false,
+  loading: () => <div className="h-full w-full bg-secondary flex items-center justify-center"><p>Loading map...</p></div>,
+});
+
 
 export function DealerFinder() {
   const [selectedDealer, setSelectedDealer] = useState<Dealer | null>(null);

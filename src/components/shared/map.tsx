@@ -45,10 +45,6 @@ export function Map({ dealers, selectedDealer, setSelectedDealer }: MapProps) {
   const defaultPosition: LatLngExpression = [39.8283, -98.5795]; // Center of US
   const center = selectedDealer ? [selectedDealer.lat, selectedDealer.lon] as LatLngExpression : defaultPosition;
   const zoom = selectedDealer ? 14 : 4;
-
-  if (typeof window === 'undefined') {
-    return <div>Loading map...</div>;
-  }
   
   return (
     <MapContainer center={center} zoom={zoom} scrollWheelZoom={false} className="h-full w-full">
