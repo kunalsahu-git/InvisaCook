@@ -3,7 +3,6 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { PlayCircle, ArrowRight, Link as LinkIcon } from "lucide-react";
 import { Button } from "../ui/button";
@@ -106,7 +105,7 @@ const allMediaItems = [
 
 type MediaItem = (typeof allMediaItems)[0];
 
-const MediaItemCard = ({ item, onVideoSelect }: { item: MediaItem, onVideoSelect: (video: MediaItem) => void }) => {
+const MediaItemThumbnail = ({ item, onVideoSelect }: { item: MediaItem, onVideoSelect: (video: MediaItem) => void }) => {
     const isVideo = item.type === 'video';
     const imageUrl = isVideo && item.videoId
         ? `https://i.ytimg.com/vi/${item.videoId}/maxresdefault.jpg`
@@ -117,10 +116,8 @@ const MediaItemCard = ({ item, onVideoSelect }: { item: MediaItem, onVideoSelect
         <Link href={item.link || '#'} target="_blank" className="block">{children}</Link>;
 
     return (
-        <Card className="group overflow-hidden flex flex-col">
-            <CardContent className="p-0 flex-grow flex flex-col">
-            <Wrapper>
-                <div className="relative">
+        <Wrapper>
+            <div className="relative group overflow-hidden rounded-lg">
                 {imageUrl && (
                     <Image
                         src={imageUrl}
@@ -138,16 +135,10 @@ const MediaItemCard = ({ item, onVideoSelect }: { item: MediaItem, onVideoSelect
                     <LinkIcon className="h-16 w-16 text-white" />
                     )}
                 </div>
-                </div>
-            </Wrapper>
-            <div className="p-4 flex-grow flex flex-col">
-                <h3 className="font-semibold text-lg">{item.title}</h3>
-                <p className="text-sm text-muted-foreground mt-2 flex-grow">{item.description}</p>
             </div>
-            </CardContent>
-        </Card>
-    )
-}
+        </Wrapper>
+    );
+};
 
 export function MediaGallery({ isPage = false }: { isPage?: boolean }) {
   const [selectedVideo, setSelectedVideo] = useState<MediaItem | null>(null);
@@ -164,7 +155,7 @@ export function MediaGallery({ isPage = false }: { isPage?: boolean }) {
             </p>
             </div>
             <div className="mt-12 grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-            {itemsToShow.map((item) => <MediaItemCard key={item.title} item={item} onVideoSelect={setSelectedVideo} />)}
+              {itemsToShow.map((item) => <MediaItemThumbnail key={item.title} item={item} onVideoSelect={setSelectedVideo} />)}
             </div>
             {!isPage && allMediaItems.length > 3 && (
             <div className="mt-12 text-center">
