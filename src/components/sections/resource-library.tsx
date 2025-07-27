@@ -6,6 +6,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
+import Link from "next/link";
 
 type Resource = {
   id: number;
@@ -79,9 +80,11 @@ export function ResourceLibrary() {
                   <div className="text-sm text-muted-foreground">
                     {resource.type} / {resource.language}
                   </div>
-                  <Button variant="outline" size="sm">
-                    <Download className="mr-2 h-4 w-4" />
-                    Download
+                  <Button variant="outline" size="sm" asChild>
+                    <Link href="#">
+                      <Download className="mr-2 h-4 w-4" />
+                      Download
+                    </Link>
                   </Button>
                 </CardContent>
               </Card>

@@ -288,6 +288,7 @@ export default function ProductDetailPage({
         
         <ProductPageContent product={product} />
 
+        <ProductVideos videos={product.videos} />
         <ProductDownloads documents={product.documents} />
         <CustomerReviews />
         <RelatedProducts currentProductSlug={params.slug}/>
