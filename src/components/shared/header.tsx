@@ -13,7 +13,7 @@ export function Header() {
     { href: "/#tech", label: "How It Works" },
     { href: "/resources", label: "Resources" },
     { href: "/dealers", label: "Dealers" },
-    { href: "/#media", label: "Media" },
+    { href: "/media", label: "Media" },
     { href: "/#support", label: "Support" },
   ];
 

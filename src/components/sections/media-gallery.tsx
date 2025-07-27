@@ -1,7 +1,9 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-import { PlayCircle } from "lucide-react";
+import { PlayCircle, ArrowRight } from "lucide-react";
+import { Button } from "../ui/button";
+import Link from "next/link";
 
 const mediaItems = [
   {
@@ -45,7 +47,8 @@ const mediaItems = [
   },
 ];
 
-export function MediaGallery() {
+export function MediaGallery({ isPage = false }: { isPage?: boolean }) {
+  const items = isPage ? mediaItems : mediaItems.slice(0, 6);
   return (
     <section id="media" className="w-full py-12 md:py-24 lg:py-32 bg-secondary/50">
       <div className="container mx-auto max-w-7xl px-4 md:px-6">
@@ -56,7 +59,7 @@ export function MediaGallery() {
           </p>
         </div>
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {mediaItems.map((item) => (
+          {items.map((item) => (
             <Card key={item.title} className="group overflow-hidden">
               <CardContent className="p-0">
                 <div className="relative">
@@ -81,6 +84,15 @@ export function MediaGallery() {
             </Card>
           ))}
         </div>
+        {!isPage && (
+          <div className="mt-12 text-center">
+            <Button asChild variant="outline">
+              <Link href="/media">
+                View All Media <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        )}
       </div>
     </section>
   );
