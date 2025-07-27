@@ -1,6 +1,7 @@
 import { Header } from "@/components/shared/header";
 import { Footer } from "@/components/shared/footer";
 import { DealerFinder } from "@/components/sections/dealer-finder";
+import { BecomeADealer } from "@/components/sections/become-a-dealer";
 
 export default function DealersPage() {
   return (
@@ -8,6 +9,7 @@ export default function DealersPage() {
       <Header />
       <main className="flex-1">
         <DealerFinder />
+        <BecomeADealer />
       </main>
       <Footer />
     </div>
