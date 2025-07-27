@@ -64,7 +64,7 @@ export function Footer() {
           </div>
           <div className="flex items-center justify-center">
             <Image 
-                src="https://placehold.co/150x150.png"
+                src="/images/usa-badge.png"
                 alt="Made in the USA"
                 width={120}
                 height={120}
