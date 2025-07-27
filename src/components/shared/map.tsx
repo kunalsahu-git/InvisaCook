@@ -30,17 +30,18 @@ function MapUpdater({ selectedDealer }: { selectedDealer: Dealer | null }) {
     const map = useMap();
     useEffect(() => {
         if (selectedDealer) {
-            map.setView([selectedDealer.lat, selectedDealer.lon], 14);
+            map.flyTo([selectedDealer.lat, selectedDealer.lon], 13);
         }
     }, [selectedDealer, map]);
     return null;
 }
 
 export const Map = ({ dealers, selectedDealer, setSelectedDealer }: { dealers: Dealer[], selectedDealer: Dealer | null, setSelectedDealer: (dealer: Dealer | null) => void }) => {
-  const defaultPosition: LatLngExpression = [39.8283, -98.5795]; // Center of US
-  
+  const defaultPosition: LatLngExpression = [39.8283, -98.5795];
+  const defaultZoom = 4;
+
   return (
-    <MapContainer center={defaultPosition} zoom={4} scrollWheelZoom={false} className="h-full w-full">
+    <MapContainer center={defaultPosition} zoom={defaultZoom} scrollWheelZoom={false} className="h-full w-full" whenCreated={() => {}}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
