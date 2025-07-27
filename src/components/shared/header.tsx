@@ -13,6 +13,7 @@ export function Header() {
   const pathname = usePathname();
   
   const navItems = [
+    { href: "/", label: "Home" },
     { href: "/#products", label: "Products" },
     { href: "/#tech", label: "How It Works" },
     { href: "/resources", label: "Resources" },
@@ -31,7 +32,7 @@ export function Header() {
 
         <nav className="hidden md:flex md:items-center md:gap-6 text-sm font-medium">
           {navItems.map((item) => {
-            const isActive = (item.href.length > 1 && pathname.startsWith(item.href)) || (pathname === '/' && item.href === '/');
+            const isActive = pathname === item.href;
             return (
               <Link 
                 key={item.label} 
@@ -72,7 +73,7 @@ export function Header() {
                 </Link>
                 <nav className="grid gap-4">
                   {navItems.map((item) => {
-                     const isActive = (item.href.length > 1 && pathname.startsWith(item.href)) || (pathname === '/' && item.href === '/');
+                     const isActive = pathname === item.href;
                     return (
                       <Link
                         key={item.label}
