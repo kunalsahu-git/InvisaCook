@@ -1,4 +1,6 @@
 
+"use client"
+
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -6,7 +8,7 @@ import { Separator } from "@/components/ui/separator";
 import { getAllProducts } from "@/lib/products";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, CreditCard, Home, Mail, Phone, Truck } from "lucide-react";
+import { ArrowLeft, CreditCard, Printer, Truck } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 // Mock Data - In a real app, you'd fetch this based on the ID
@@ -56,12 +58,16 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
   if (!order) {
     notFound();
   }
+  
+  const handlePrint = () => {
+    window.print();
+  }
 
   return (
-    <Card>
-        <CardHeader className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <Card id="printable-receipt">
+        <CardHeader className="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
             <div>
-                <Link href="/account/orders" className="flex items-center text-sm text-muted-foreground hover:text-primary mb-4">
+                <Link href="/account/orders" className="flex items-center text-sm text-muted-foreground hover:text-primary mb-4 no-print">
                     <ArrowLeft className="mr-2 h-4 w-4" />
                     Back to Orders
                 </Link>
@@ -69,14 +75,20 @@ export default function OrderDetailPage({ params }: { params: { id: string } }) 
                 <p className="text-muted-foreground">Order ID: {order.id}</p>
                 <p className="text-sm text-muted-foreground">Placed on {new Date(order.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
             </div>
-            <div className="flex items-center gap-2">
-                <Truck className="h-6 w-6 text-muted-foreground" />
-                <Badge variant={
-                    order.status === 'Fulfilled' ? 'default' : 
-                    order.status === 'Pending' ? 'secondary' :
-                    order.status === 'Shipped' ? 'outline' :
-                    'destructive'
-                } className="text-lg px-4 py-1">{order.status}</Badge>
+            <div className="flex flex-col items-stretch md:items-end gap-2">
+                <div className="flex items-center gap-2">
+                    <Truck className="h-6 w-6 text-muted-foreground" />
+                    <Badge variant={
+                        order.status === 'Fulfilled' ? 'default' : 
+                        order.status === 'Pending' ? 'secondary' :
+                        order.status === 'Shipped' ? 'outline' :
+                        'destructive'
+                    } className="text-lg px-4 py-1">{order.status}</Badge>
+                </div>
+                 <Button onClick={handlePrint} variant="outline" className="mt-4 no-print">
+                    <Printer className="mr-2 h-4 w-4" />
+                    Print Receipt
+                </Button>
             </div>
         </CardHeader>
         <CardContent>

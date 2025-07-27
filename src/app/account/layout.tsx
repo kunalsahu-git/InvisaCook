@@ -22,7 +22,7 @@ export default function AccountLayout({
       <main className="flex-1 bg-secondary/50 py-12 md:py-24">
         <div className="container mx-auto max-w-7xl px-4 md:px-6">
            <div className="grid md:grid-cols-4 gap-8">
-               <aside className="md:col-span-1">
+               <aside className="md:col-span-1 no-print">
                    <Card className="p-4">
                         <nav className="flex flex-col gap-2">
                            {accountNav.map(item => (
