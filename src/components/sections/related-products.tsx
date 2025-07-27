@@ -30,13 +30,13 @@ export function RelatedProducts({ currentProductSlug }: RelatedProductsProps) {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {relatedProducts.map((product) => (
             <Card key={product.title} className="flex flex-col overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div className="relative">
+              <div className="relative h-48">
                 <Image
                   src={product.images[0].src}
                   alt={product.title}
-                  width={500}
-                  height={300}
-                  className="h-auto w-full object-cover"
+                  layout="fill"
+                  objectFit="cover"
+                  className="h-auto w-full"
                   data-ai-hint={product.images[0].aiHint}
                 />
               </div>

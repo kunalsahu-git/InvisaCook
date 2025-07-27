@@ -1,40 +1,15 @@
 
-
-"use client";
-
-import { useState } from "react";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/shared/header";
 import { Footer } from "@/components/shared/footer";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import {
-  Flame,
-  Wifi,
-  Zap,
-  Layers,
-  CircleDollarSign,
-  Sun,
-  BatteryCharging,
-  Ruler,
-  ChevronLeft,
-  ShoppingCart,
-  Plus,
-  Minus,
-  PlayCircle,
-} from "lucide-react";
+import { Flame, Wifi, Zap, Layers, CircleDollarSign, Sun, BatteryCharging, Ruler, PlayCircle } from "lucide-react";
 import Link from "next/link";
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { ProductGallery } from "@/components/shared/product-gallery";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CustomerReviews } from "@/components/sections/customer-reviews";
 import { RelatedProducts } from "@/components/sections/related-products";
 import Image from "next/image";
-import { Separator } from "@/components/ui/separator";
+import { ProductPageContent } from "@/components/shared/product-page-content";
+
 
 const productData = {
   "invisacook-burners": {
@@ -49,9 +24,9 @@ const productData = {
       { src: "https://placehold.co/800x800.png", alt: "Cooking with InvisaCook", aiHint: "active cooking" },
     ],
     features: [
-      { icon: Flame, text: "Available in 1 to 4 burner configurations" },
-      { icon: Zap, text: "Power Boost feature for rapid heating" },
-      { icon: Wifi, text: "Full control via the InvisaCook mobile app" },
+      { icon: 'Flame', text: "Available in 1 to 4 burner configurations" },
+      { icon: 'Zap', text: "Power Boost feature for rapid heating" },
+      { icon: 'Wifi', text: "Full control via the InvisaCook mobile app" },
     ],
     specs: [
       { label: "Compatibility", value: "12mm Porcelain or Granite" },
@@ -76,9 +51,9 @@ const productData = {
       { src: "https://placehold.co/800x800.png", alt: "Cookware in action on an InvisaCook surface", aiHint: "cooking pot" },
     ],
     features: [
-      { icon: Layers, text: "5-Ply Copper Core construction for even heating" },
+      { icon: 'Layers', text: "5-Ply Copper Core construction for even heating" },
       {
-        icon: CircleDollarSign,
+        icon: 'CircleDollarSign',
         text: "Sets starting at $499, individual pieces available",
       },
     ],
@@ -103,7 +78,7 @@ const productData = {
       { src: "https://placehold.co/800x800.png", alt: "InvisaMat being cleaned", aiHint: "kitchen cleaning" },
     ],
     features: [
-      { icon: Sun, text: "Optimizes heat transfer for efficient cooking" },
+      { icon: 'Sun', text: "Optimizes heat transfer for efficient cooking" },
       { text: "Protects countertop from scratches and minor spills" },
       { text: "Dishwasher safe for easy cleanup" },
     ],
@@ -126,7 +101,7 @@ const productData = {
     ],
     features: [
       {
-        icon: BatteryCharging,
+        icon: 'BatteryCharging',
         text: "Delivers up to 15W of fast wireless power",
       },
       { text: "Completely invisible installation" },
@@ -152,7 +127,7 @@ const productData = {
         { src: "https://placehold.co/800x800.png", alt: "InvisaRail installed in a cabinet", aiHint: "kitchen cabinet" },
     ],
     features: [
-      { icon: Ruler, text: "Supports cabinet widths up to 96 inches" },
+      { icon: 'Ruler', text: "Supports cabinet widths up to 96 inches" },
       { text: "Ensures level and secure burner installation" },
       { text: "Made from high-strength anodized aluminum" },
     ],
@@ -165,16 +140,25 @@ const productData = {
   },
 };
 
-export type Product = (typeof productData)[keyof typeof productData];
+export type Product = Omit<(typeof productData)[keyof typeof productData], 'features'> & {
+  features: {
+      icon?: string;
+      text: string;
+  }[];
+};
+export type ProductWithSlug = Product & { slug: string };
 
-export const getProductBySlug = (slug: string): Product | undefined => {
-  return productData[slug as keyof typeof productData];
+export const getProductBySlug = (slug: string): ProductWithSlug | undefined => {
+  const product = productData[slug as keyof typeof productData] as Product | undefined;
+  if (product) {
+    return { ...product, slug };
+  }
+  return undefined;
 };
 
-export const getAllProducts = () => {
-    return Object.entries(productData).map(([slug, product]) => ({...product, slug}))
+export const getAllProducts = (): ProductWithSlug[] => {
+    return Object.entries(productData).map(([slug, product]) => ({...(product as Product), slug}))
 }
-
 
 function ProductVideos({ videos }: { videos: Product['videos'] }) {
     if (!videos || videos.length === 0) {
@@ -227,112 +211,19 @@ export default function ProductDetailPage({
 }: {
   params: { slug: string };
 }) {
-  const [quantity, setQuantity] = useState(1);
   const product = getProductBySlug(params.slug);
 
   if (!product) {
     notFound();
   }
 
-  const handleQuantityChange = (amount: number) => {
-    setQuantity(prev => Math.max(1, prev + amount));
-  }
-
   return (
     <div className="flex min-h-screen flex-col bg-secondary/20">
       <Header />
       <main className="flex-1 py-12 md:py-16 lg:py-20">
-        <div className="container mx-auto max-w-6xl px-4 md:px-6">
-          <div className="mb-8">
-            <Button asChild variant="ghost">
-              <Link href="/#products">
-                <ChevronLeft className="mr-2 h-4 w-4" />
-                Back to Products
-              </Link>
-            </Button>
-          </div>
-
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-            <ProductGallery images={product.images} />
-
-            <div className="space-y-6">
-              <div className="space-y-4">
-                <Badge variant="secondary">{params.slug.split('-')[0]}</Badge>
-                <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-                  {product.title}
-                </h1>
-                <p className="text-muted-foreground md:text-lg">
-                  {product.description}
-                </p>
-                <div className="text-4xl font-bold">
-                    ${product.price.toFixed(2)}
-                </div>
-              </div>
-
-              <Separator />
-
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                    <div className="flex items-center gap-2">
-                        <Button variant="outline" size="icon" onClick={() => handleQuantityChange(-1)}>
-                            <Minus className="h-4 w-4" />
-                        </Button>
-                        <span className="w-12 text-center text-lg font-medium">{quantity}</span>
-                         <Button variant="outline" size="icon" onClick={() => handleQuantityChange(1)}>
-                            <Plus className="h-4 w-4" />
-                        </Button>
-                    </div>
-                    <Button size="lg" variant="outline" className="flex-1">
-                        <ShoppingCart className="mr-2 h-5 w-5" />
-                        Add to Cart
-                    </Button>
-                </div>
-                <Button size="lg" className="w-full">Buy Now</Button>
-              </div>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Key Features</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3">
-                    {product.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        {feature.icon && (
-                          <feature.icon className="h-5 w-5 mt-1 text-accent flex-shrink-0" />
-                        )}
-                        {!feature.icon && <div className="h-5 w-5 flex-shrink-0" />}
-                        <span>{feature.text}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-
-              <Card>
-                <CardHeader>
-                  <CardTitle>Technical Specifications</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="divide-y">
-                    {product.specs.map((spec) => (
-                      <div
-                        key={spec.label}
-                        className="grid grid-cols-2 gap-4 py-3"
-                      >
-                        <span className="font-medium text-muted-foreground">
-                          {spec.label}
-                        </span>
-                        <span>{spec.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </div>
         
+        <ProductPageContent product={product} />
+
         <ProductVideos videos={product.videos} />
         <CustomerReviews />
         <RelatedProducts currentProductSlug={params.slug}/>
