@@ -9,12 +9,11 @@ import { Menu, CookingPot } from "lucide-react";
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const navItems = [
-    { href: "#products", label: "Products" },
-    { href: "#tech", label: "How It Works" },
-    { href: "#resources", label: "Resources" },
-    { href: "#media", label: "Media" },
-    { href: "#dealers", label: "Dealers" },
-    { href: "#support", label: "Support" },
+    { href: "/#products", label: "Products" },
+    { href: "/#tech", label: "How It Works" },
+    { href: "/resources", label: "Resources & Dealers" },
+    { href: "/#media", label: "Media" },
+    { href: "/#support", label: "Support" },
   ];
 
   return (

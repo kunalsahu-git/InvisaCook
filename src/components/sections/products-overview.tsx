@@ -1,10 +1,12 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Flame, Wifi, Zap, Layers, CircleDollarSign, Sun, BatteryCharging, Ruler } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Flame, Wifi, Zap, Layers, CircleDollarSign, Sun, BatteryCharging, Ruler, ArrowRight } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const products = [
   {
+    slug: "invisacook-burners",
     title: "InvisaCook Burners",
     description: "Undermount induction elements for a truly invisible cooktop. Available in 1-4 burner models.",
     image: "https://placehold.co/500x300.png",
@@ -16,6 +18,7 @@ const products = [
     ],
   },
   {
+    slug: "invisacookware-sets",
     title: "InvisaCookware Sets",
     description: "Engineered for performance with a riser system to protect your countertop.",
     image: "https://placehold.co/500x300.png",
@@ -26,6 +29,7 @@ const products = [
     ],
   },
   {
+    slug: "invisamat",
     title: "InvisaMat",
     description: "A proprietary silicone mat that ensures proper heat diffusion and compatibility.",
     image: "https://placehold.co/500x300.png",
@@ -35,6 +39,7 @@ const products = [
     ],
   },
   {
+    slug: "invisacharge",
     title: "InvisaCharge",
     description: "Qi wireless charging that works through countertops up to 5cm thick.",
     image: "https://placehold.co/500x300.png",
@@ -44,6 +49,7 @@ const products = [
     ],
   },
   {
+    slug: "invisarail",
     title: "InvisaRail",
     description: "The support structure for your burners, ensuring a secure and level installation.",
     image: "https://placehold.co/500x300.png",
@@ -81,7 +87,7 @@ export function ProductsOverview() {
                 <CardTitle>{product.title}</CardTitle>
                 <CardDescription>{product.description}</CardDescription>
               </CardHeader>
-              <CardContent className="flex-grow flex flex-col justify-end">
+              <CardContent className="flex-grow flex flex-col justify-between">
                 <div className="space-y-2">
                   <h4 className="font-semibold text-sm">Key Features:</h4>
                   <ul className="space-y-2">
@@ -93,6 +99,12 @@ export function ProductsOverview() {
                     ))}
                   </ul>
                 </div>
+                 <Button asChild className="mt-6 w-full" variant="outline">
+                    <Link href={`/products/${product.slug}`}>
+                        View Details
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                </Button>
               </CardContent>
             </Card>
           ))}

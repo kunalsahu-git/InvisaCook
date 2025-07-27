@@ -3,9 +3,7 @@ import { Footer } from "@/components/shared/footer";
 import { HeroSection } from "@/components/sections/hero-section";
 import { ProductsOverview } from "@/components/sections/products-overview";
 import { TechnologySection } from "@/components/sections/technology-section";
-import { ResourceLibrary } from "@/components/sections/resource-library";
 import { MediaGallery } from "@/components/sections/media-gallery";
-import { DealerFinder } from "@/components/sections/dealer-finder";
 import { FaqSupport } from "@/components/sections/faq-support";
 
 export default function Home() {
@@ -16,9 +14,7 @@ export default function Home() {
         <HeroSection />
         <ProductsOverview />
         <TechnologySection />
-        <ResourceLibrary />
         <MediaGallery />
-        <DealerFinder />
         <FaqSupport />
       </main>
       <Footer />
