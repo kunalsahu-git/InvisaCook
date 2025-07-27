@@ -58,7 +58,7 @@ export default function AdminLayout({
                 <SidebarMenuButton asChild tooltip="Dashboard">
                   <Link href="/admin/dashboard">
                     <Home />
-                    <span className="min-w-0">Dashboard</span>
+                    <span>Dashboard</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -66,7 +66,7 @@ export default function AdminLayout({
                 <SidebarMenuButton asChild tooltip="Products">
                   <Link href="/admin/products">
                     <Package />
-                     <span className="min-w-0">Products</span>
+                     <span>Products</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -74,7 +74,7 @@ export default function AdminLayout({
                 <SidebarMenuButton asChild tooltip="Orders">
                   <Link href="/admin/orders">
                     <ShoppingCart />
-                     <span className="min-w-0">Orders</span>
+                     <span>Orders</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -82,7 +82,7 @@ export default function AdminLayout({
                 <SidebarMenuButton asChild tooltip="Analytics">
                   <Link href="/admin/analytics">
                     <LineChart />
-                     <span className="min-w-0">Analytics</span>
+                     <span>Analytics</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -94,7 +94,7 @@ export default function AdminLayout({
                     <SidebarMenuButton asChild tooltip="Settings">
                         <Link href="#">
                             <Settings />
-                             <span className="min-w-0">Settings</span>
+                             <span>Settings</span>
                         </Link>
                     </SidebarMenuButton>
                  </SidebarMenuItem>

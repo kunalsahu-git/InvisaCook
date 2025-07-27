@@ -1,5 +1,4 @@
 
-
 "use client"
 
 import * as React from "react"
@@ -130,10 +129,10 @@ const Sidebar = React.forwardRef<
   if (isMobile) {
     return (
       <Sheet open={openMobile} onOpenChange={setOpenMobile}>
-        <SheetContent side="left" className="w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground"
+        <SheetContent side="left" className="w-[var(--sidebar-width-mobile)] bg-sidebar p-0 text-sidebar-foreground"
           style={
             {
-              "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
+              "--sidebar-width-mobile": SIDEBAR_WIDTH_MOBILE,
             } as React.CSSProperties
           }
         >
@@ -182,7 +181,7 @@ const SidebarHeader = React.forwardRef<
     <div
       ref={ref}
       data-sidebar="header"
-      className={cn("flex h-16 items-center p-3 border-b", !open && "justify-center", className)}
+      className={cn("flex h-16 items-center border-b p-3", !open && "justify-center", className)}
       {...props}
     />
   )
@@ -197,7 +196,7 @@ const SidebarFooter = React.forwardRef<
     <div
       ref={ref}
       data-sidebar="footer"
-      className={cn("flex flex-col gap-2 p-3 mt-auto border-t", className)}
+      className={cn("mt-auto flex flex-col gap-2 border-t p-3", className)}
       {...props}
     />
   )
@@ -229,7 +228,7 @@ const SidebarMenu = React.forwardRef<
   <ul
     ref={ref}
     data-sidebar="menu"
-    className={cn("flex w-full min-w-0 flex-col gap-1 p-3", className)}
+    className={cn("flex w-full min-w-0 flex-col gap-1 px-2", className)}
     {...props}
   />
 ))
@@ -249,7 +248,7 @@ const SidebarMenuItem = React.forwardRef<
 SidebarMenuItem.displayName = "SidebarMenuItem"
 
 const sidebarMenuButtonVariants = cva(
-  "peer/menu-button flex w-full items-center gap-2 overflow-hidden whitespace-nowrap rounded-md p-2 text-left text-sm outline-none ring-sidebar-ring transition-all hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground",
+  "peer/menu-button flex w-full items-center gap-3 overflow-hidden whitespace-nowrap rounded-md p-2 text-left text-sm outline-none ring-sidebar-ring transition-all hover:bg-sidebar-accent hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 group-has-[[data-sidebar=menu-action]]/menu-item:pr-8 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-[active=true]:bg-sidebar-accent data-[active=true]:font-medium data-[active=true]:text-sidebar-accent-foreground",
   {
     variants: {
       variant: {
@@ -306,7 +305,7 @@ const SidebarMenuButton = React.forwardRef<
         {React.Children.map(children, (child) => {
             if (React.isValidElement(child) && child.type === 'span') {
                 return React.cloneElement(child as React.ReactElement, {
-                    className: cn("transition-all duration-300", !open && "opacity-0 w-0 -translate-x-4"),
+                    className: cn("transition-all duration-200", open ? "opacity-100 w-auto" : "opacity-0 w-0"),
                 });
             }
             return child;
