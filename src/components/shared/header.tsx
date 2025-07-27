@@ -2,12 +2,16 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Menu, CookingPot, ShoppingCart } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  
   const navItems = [
     { href: "/#products", label: "Products" },
     { href: "/#tech", label: "How It Works" },
@@ -26,11 +30,21 @@ export function Header() {
         </Link>
 
         <nav className="hidden md:flex md:items-center md:gap-6 text-sm font-medium">
-          {navItems.map((item) => (
-            <Link key={item.label} href={item.href} className="transition-colors hover:text-accent">
-              {item.label}
-            </Link>
-          ))}
+          {navItems.map((item) => {
+            const isActive = (item.href.length > 1 && pathname.startsWith(item.href)) || (pathname === '/' && item.href === '/');
+            return (
+              <Link 
+                key={item.label} 
+                href={item.href} 
+                className={cn(
+                  "transition-colors hover:text-accent",
+                  isActive ? "text-accent font-semibold" : ""
+                )}
+              >
+                {item.label}
+              </Link>
+            )
+          })}
         </nav>
 
         <div className="flex items-center gap-4">
@@ -57,16 +71,22 @@ export function Header() {
                   <span className="font-headline text-xl font-semibold">InvisaCook</span>
                 </Link>
                 <nav className="grid gap-4">
-                  {navItems.map((item) => (
-                    <Link
-                      key={item.label}
-                      href={item.href}
-                      className="py-2 text-lg font-medium transition-colors hover:text-accent"
-                      onClick={() => setIsOpen(false)}
-                    >
-                      {item.label}
-                    </Link>
-                  ))}
+                  {navItems.map((item) => {
+                     const isActive = (item.href.length > 1 && pathname.startsWith(item.href)) || (pathname === '/' && item.href === '/');
+                    return (
+                      <Link
+                        key={item.label}
+                        href={item.href}
+                        className={cn(
+                          "py-2 text-lg font-medium transition-colors hover:text-accent",
+                           isActive ? "text-accent font-semibold" : ""
+                        )}
+                        onClick={() => setIsOpen(false)}
+                      >
+                        {item.label}
+                      </Link>
+                    )
+                  })}
                 </nav>
                  <Button asChild variant="outline">
                    <Link href="/#support" onClick={() => setIsOpen(false)}>Contact Sales</Link>
