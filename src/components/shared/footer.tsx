@@ -34,10 +34,10 @@ export function Footer() {
           <div>
             <h4 className="font-semibold text-primary-foreground/90">Quick Links</h4>
             <ul className="mt-4 space-y-2">
-              <li><Link href="#registration" className="text-sm text-primary-foreground/80 hover:text-accent">Registration</Link></li>
-              <li><Link href="#terms" className="text-sm text-primary-foreground/80 hover:text-accent">Terms & Warranties</Link></li>
-              <li><Link href="/resources" className="text-sm text-primary-foreground/80 hover:text-accent">Downloads</Link></li>
-              <li><Link href="#app" className="text-sm text-primary-foreground/80 hover:text-accent">Mobile App</Link></li>
+              <li><Link href="/#support" className="text-sm text-primary-foreground/80 hover:text-accent">Registration</Link></li>
+              <li><Link href="/terms" className="text-sm text-primary-foreground/80 hover:text-accent">Terms & Warranties</Link></li>
+              <li><Link href="/resources" className="text-sm text-primary-foreground/80 hover:text-accent">Resources</Link></li>
+              <li><Link href="/mobile-app" className="text-sm text-primary-foreground/80 hover:text-accent">Mobile App</Link></li>
             </ul>
           </div>
           <div>
