@@ -34,7 +34,9 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-4">
-          <Button className="hidden sm:inline-flex" variant="outline">Contact Sales</Button>
+          <Button asChild className="hidden sm:inline-flex" variant="outline">
+            <Link href="/#support">Contact Sales</Link>
+          </Button>
           <Button asChild variant="ghost" size="icon">
             <Link href="/cart">
               <ShoppingCart className="h-6 w-6" />
@@ -66,7 +68,9 @@ export function Header() {
                     </Link>
                   ))}
                 </nav>
-                 <Button variant="outline">Contact Sales</Button>
+                 <Button asChild variant="outline">
+                   <Link href="/#support" onClick={() => setIsOpen(false)}>Contact Sales</Link>
+                 </Button>
               </div>
             </SheetContent>
           </Sheet>
