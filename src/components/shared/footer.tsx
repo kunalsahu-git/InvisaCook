@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Facebook, Instagram, Youtube } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -29,6 +30,20 @@ export function Footer() {
           <p className="mt-2 text-sm text-primary-foreground/80">
             Invisible cooking technology for modern homes.
           </p>
+           <div className="mt-4 flex space-x-4">
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-primary-foreground/80 hover:bg-accent/20 hover:text-accent" asChild>
+                <Link href="#" aria-label="Instagram"><Instagram className="h-5 w-5" /></Link>
+              </Button>
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-primary-foreground/80 hover:bg-accent/20 hover:text-accent" asChild>
+                <Link href="#" aria-label="YouTube"><Youtube className="h-5 w-5" /></Link>
+              </Button>
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-primary-foreground/80 hover:bg-accent/20 hover:text-accent" asChild>
+                <Link href="#" aria-label="Facebook"><Facebook className="h-5 w-5" /></Link>
+              </Button>
+               <Button variant="ghost" size="icon" className="h-8 w-8 text-primary-foreground/80 hover:bg-accent/20 hover:text-accent" asChild>
+                <Link href="#" aria-label="TikTok"><TikTokIcon className="h-5 w-5" /></Link>
+              </Button>
+            </div>
         </div>
         <div className="grid grid-cols-2 gap-8 sm:grid-cols-3 md:col-span-3">
           <div>
@@ -47,22 +62,14 @@ export function Footer() {
               <li className="text-sm text-primary-foreground/80">+1 386-263-8578</li>
             </ul>
           </div>
-          <div>
-            <h4 className="font-semibold text-primary-foreground/90">Follow Us</h4>
-            <div className="mt-4 flex space-x-4">
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-primary-foreground/80 hover:bg-accent/20 hover:text-accent" asChild>
-                <Link href="#" aria-label="Instagram"><Instagram className="h-5 w-5" /></Link>
-              </Button>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-primary-foreground/80 hover:bg-accent/20 hover:text-accent" asChild>
-                <Link href="#" aria-label="YouTube"><Youtube className="h-5 w-5" /></Link>
-              </Button>
-              <Button variant="ghost" size="icon" className="h-8 w-8 text-primary-foreground/80 hover:bg-accent/20 hover:text-accent" asChild>
-                <Link href="#" aria-label="Facebook"><Facebook className="h-5 w-5" /></Link>
-              </Button>
-               <Button variant="ghost" size="icon" className="h-8 w-8 text-primary-foreground/80 hover:bg-accent/20 hover:text-accent" asChild>
-                <Link href="#" aria-label="TikTok"><TikTokIcon className="h-5 w-5" /></Link>
-              </Button>
-            </div>
+          <div className="flex items-center justify-center">
+            <Image 
+                src="https://placehold.co/150x150.png"
+                alt="Made in the USA"
+                width={120}
+                height={120}
+                data-ai-hint="usa badge"
+            />
           </div>
         </div>
       </div>
