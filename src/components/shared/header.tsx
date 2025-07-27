@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState } from "react";
@@ -6,16 +7,18 @@ import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
-import { Menu, CookingPot, ShoppingCart } from "lucide-react";
+import { Menu, CookingPot, ShoppingCart, PanelLeft } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useSidebar } from "@/components/ui/sidebar";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { toggleSidebar, isMobile } = useSidebar();
   
   const navItems = [
     { href: "/", label: "Home" },
-    { href: "/products", label: "Products" },
+    { href: "/all-products", label: "Products" },
     { href: "/#tech", label: "How It Works" },
     { href: "/resources", label: "Resources" },
     { href: "/dealers", label: "Dealers" },
@@ -23,83 +26,99 @@ export function Header() {
     { href: "/#support", label: "Support" },
   ];
 
+  const isAdminRoute = pathname.startsWith('/admin');
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto flex h-16 max-w-7xl items-center justify-between px-4 md:px-6">
-        <Link href="/" className="flex items-center gap-2 font-bold" aria-label="InvisaCook Home">
-          <CookingPot className="h-6 w-6 text-accent" />
-          <span className="font-headline text-xl font-semibold">InvisaCook</span>
-        </Link>
+        <div className="flex items-center gap-2">
+            {isAdminRoute && (
+                 <Button variant="ghost" size="icon" onClick={toggleSidebar} className="md:hidden">
+                    <PanelLeft className="h-6 w-6" />
+                    <span className="sr-only">Toggle Sidebar</span>
+                 </Button>
+            )}
+            <Link href="/" className="flex items-center gap-2 font-bold" aria-label="InvisaCook Home">
+            <CookingPot className="h-6 w-6 text-accent" />
+            <span className="font-headline text-xl font-semibold">InvisaCook</span>
+            </Link>
+        </div>
 
-        <nav className="hidden md:flex md:items-center md:gap-6 text-sm font-medium">
-          {navItems.map((item) => {
-            const isActive = item.href === "/" ? pathname === item.href : pathname.startsWith(item.href) && item.href !== "/";
-            return (
-              <Link 
-                key={item.label} 
-                href={item.href} 
-                className={cn(
-                  "transition-colors hover:text-accent",
-                  isActive ? "text-accent font-semibold" : ""
-                )}
-              >
-                {item.label}
-              </Link>
-            )
-          })}
-        </nav>
+        {!isAdminRoute && (
+             <nav className="hidden md:flex md:items-center md:gap-6 text-sm font-medium">
+             {navItems.map((item) => {
+               const isActive = item.href === "/" ? pathname === item.href : pathname.startsWith(item.href) && item.href !== "/";
+               return (
+                 <Link 
+                   key={item.label} 
+                   href={item.href} 
+                   className={cn(
+                     "transition-colors hover:text-accent",
+                     isActive ? "text-accent font-semibold" : ""
+                   )}
+                 >
+                   {item.label}
+                 </Link>
+               )
+             })}
+           </nav>
+        )}
 
         <div className="flex items-center gap-4">
-          <Button asChild className="hidden sm:inline-flex" variant="outline">
-            <Link href="/#support">Contact Sales</Link>
-          </Button>
+          {!isAdminRoute && (
+            <Button asChild className="hidden sm:inline-flex" variant="outline">
+              <Link href="/#support">Contact Sales</Link>
+            </Button>
+          )}
           <Button asChild variant="ghost" size="icon">
             <Link href="/cart">
               <ShoppingCart className="h-6 w-6" />
               <span className="sr-only">View Cart</span>
             </Link>
           </Button>
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="md:hidden">
-              <Button variant="ghost" size="icon">
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Toggle Menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right">
-              <SheetHeader className="sr-only">
-                  <SheetTitle>Mobile Menu</SheetTitle>
-                  <SheetDescription>Main navigation links for the InvisaCook website.</SheetDescription>
-              </SheetHeader>
-              <div className="flex flex-col gap-6 p-6">
-                <Link href="/" className="flex items-center gap-2 font-bold" onClick={() => setIsOpen(false)}>
-                  <CookingPot className="h-6 w-6 text-accent" />
-                  <span className="font-headline text-xl font-semibold">InvisaCook</span>
-                </Link>
-                <nav className="grid gap-4">
-                  {navItems.map((item) => {
-                     const isActive = item.href === "/" ? pathname === item.href : pathname.startsWith(item.href) && item.href !== "/";
-                    return (
-                      <Link
-                        key={item.label}
-                        href={item.href}
-                        className={cn(
-                          "py-2 text-lg font-medium transition-colors hover:text-accent",
-                           isActive ? "text-accent font-semibold" : ""
-                        )}
-                        onClick={() => setIsOpen(false)}
-                      >
-                        {item.label}
-                      </Link>
-                    )
-                  })}
-                </nav>
-                 <Button asChild variant="outline">
-                   <Link href="/#support" onClick={() => setIsOpen(false)}>Contact Sales</Link>
-                 </Button>
-              </div>
-            </SheetContent>
-          </Sheet>
+          {!isAdminRoute && (
+            <Sheet open={isOpen} onOpenChange={setIsOpen}>
+                <SheetTrigger asChild className="md:hidden">
+                <Button variant="ghost" size="icon">
+                    <Menu className="h-6 w-6" />
+                    <span className="sr-only">Toggle Menu</span>
+                </Button>
+                </SheetTrigger>
+                <SheetContent side="right">
+                <SheetHeader>
+                    <SheetTitle className="sr-only">Mobile Menu</SheetTitle>
+                    <SheetDescription className="sr-only">Main navigation links for the InvisaCook website.</SheetDescription>
+                </SheetHeader>
+                <div className="flex flex-col gap-6 p-6">
+                    <Link href="/" className="flex items-center gap-2 font-bold" onClick={() => setIsOpen(false)}>
+                    <CookingPot className="h-6 w-6 text-accent" />
+                    <span className="font-headline text-xl font-semibold">InvisaCook</span>
+                    </Link>
+                    <nav className="grid gap-4">
+                    {navItems.map((item) => {
+                        const isActive = item.href === "/" ? pathname === item.href : pathname.startsWith(item.href) && item.href !== "/";
+                        return (
+                        <Link
+                            key={item.label}
+                            href={item.href}
+                            className={cn(
+                            "py-2 text-lg font-medium transition-colors hover:text-accent",
+                            isActive ? "text-accent font-semibold" : ""
+                            )}
+                            onClick={() => setIsOpen(false)}
+                        >
+                            {item.label}
+                        </Link>
+                        )
+                    })}
+                    </nav>
+                    <Button asChild variant="outline">
+                    <Link href="/#support" onClick={() => setIsOpen(false)}>Contact Sales</Link>
+                    </Button>
+                </div>
+                </SheetContent>
+            </Sheet>
+          )}
         </div>
       </div>
     </header>

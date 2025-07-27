@@ -98,7 +98,7 @@ export default function CartPage() {
                 <h2 className="text-2xl font-semibold">Your cart is empty</h2>
                 <p className="text-muted-foreground mt-2">Looks like you haven't added anything to your cart yet.</p>
                 <Button asChild className="mt-6">
-                  <Link href="/products">Continue Shopping</Link>
+                  <Link href="/all-products">Continue Shopping</Link>
                 </Button>
               </CardContent>
             </Card>

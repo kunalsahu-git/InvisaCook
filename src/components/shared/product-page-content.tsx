@@ -47,7 +47,7 @@ export function ProductPageContent({ product }: { product: ProductWithSlug }) {
     <div className="container mx-auto max-w-6xl px-4 md:px-6">
       <div className="mb-8">
         <Button asChild variant="ghost">
-          <Link href="/products">
+          <Link href="/all-products">
             <ChevronLeft className="mr-2 h-4 w-4" />
             Back to Products
           </Link>

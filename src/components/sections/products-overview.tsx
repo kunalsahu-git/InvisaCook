@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState } from "react";
@@ -94,7 +95,7 @@ export function ProductsOverview() {
 
         <div className="mt-16 text-center">
             <Button asChild variant="outline" size="lg">
-              <Link href="/products">
+              <Link href="/all-products">
                 View All Products <ArrowRight className="ml-2 h-4 w-4" />
               </Link>
             </Button>
