@@ -68,7 +68,7 @@ export function Header() {
         </div>
 
         {!isAdminRoute && (
-             <nav className="hidden md:flex md:items-center md:gap-6 text-sm font-medium">
+             <nav className="hidden md:flex md:items-center md:gap-1 text-sm font-medium">
              {navItems.map((item) => {
                const isActive = item.href === "/" ? pathname === item.href : pathname.startsWith(item.href) && item.href !== "/";
                return (
@@ -76,8 +76,11 @@ export function Header() {
                    key={item.label} 
                    href={item.href} 
                    className={cn(
-                     "transition-colors hover:text-accent",
-                     isActive ? "text-accent font-semibold" : ""
+                     "relative px-4 py-2 transition-colors hover:text-accent",
+                     isActive ? "text-accent font-semibold" : "text-muted-foreground",
+                     "after:content-[''] after:absolute after:bottom-1 after:left-1/2 after:h-[2px] after:w-0 after:bg-accent after:transition-all after:duration-300 hover:after:w-1/2 hover:after:-translate-x-1/2",
+                     "before:content-[''] before:absolute before:bottom-1 before:left-1/2 before:h-[2px] before:w-0 before:bg-accent before:transition-all before:duration-300 hover:before:w-1/2 hover:before:-translate-x-1/2",
+                     isActive && "after:w-1/2 after:-translate-x-1/2 before:w-1/2 before:-translate-x-1/2"
                    )}
                  >
                    {item.label}
