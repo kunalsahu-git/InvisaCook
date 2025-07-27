@@ -17,9 +17,8 @@ export const productData = {
 
     ],
     features: [
-      { icon: 'Flame', text: "Available in 1 to 4 burner configurations" },
+      { icon: 'Flame', text: "Available in 1 to 5 burner configurations" },
       { icon: 'Zap', text: "Power Boost feature for rapid heating" },
-      { icon: 'Wifi', text: "Full control via the InvisaCook mobile app" },
     ],
     specs: [
       { label: "Compatibility", value: "12mm Porcelain or Granite" },
@@ -59,7 +58,7 @@ export const productData = {
       { icon: 'Layers', text: "5-Ply Copper Core construction for even heating" },
       {
         icon: 'CircleDollarSign',
-        text: "Sets starting at $499, individual pieces available",
+        text: "Sets starting at $550",
       },
     ],
     specs: [
