@@ -6,11 +6,10 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarFooter,
-  SidebarInset,
   SidebarContent,
   SidebarProvider,
 } from "@/components/ui/sidebar"
-import { Home, Package, ShoppingCart, Users, LineChart, Settings } from "lucide-react"
+import { Home, Package, ShoppingCart, LineChart, Settings } from "lucide-react"
 import Link from "next/link"
 import { Header } from "@/components/shared/header";
 
