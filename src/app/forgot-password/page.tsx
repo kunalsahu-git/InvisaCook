@@ -18,7 +18,8 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Header } from "@/components/shared/header"
 import { Footer } from "@/components/shared/footer"
 import Link from "next/link"
-import { CookingPot, ArrowLeft } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
+import Image from "next/image"
 
 const forgotPasswordFormSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address." }),
@@ -46,7 +47,7 @@ export default function ForgotPasswordPage() {
         <Card className="w-full max-w-md mx-4">
           <CardHeader className="text-center">
             <Link href="/" className="flex justify-center items-center gap-2 font-bold mb-4" aria-label="InvisaCook Home">
-                <CookingPot className="h-8 w-8 text-accent" />
+                <Image src="https://placehold.co/140x35.png" alt="InvisaCook Logo" width={140} height={35} data-ai-hint="company logo" />
             </Link>
             <CardTitle>Forgot Password?</CardTitle>
             <CardDescription>No problem. Enter your email to receive a reset link.</CardDescription>

@@ -18,7 +18,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Header } from "@/components/shared/header"
 import { Footer } from "@/components/shared/footer"
 import Link from "next/link"
-import { CookingPot } from "lucide-react"
+import Image from "next/image"
 
 const registerFormSchema = z.object({
   name: z.string().min(2, { message: "Name must be at least 2 characters." }),
@@ -50,7 +50,7 @@ export default function RegisterPage() {
         <Card className="w-full max-w-md mx-4">
           <CardHeader className="text-center">
             <Link href="/" className="flex justify-center items-center gap-2 font-bold mb-4" aria-label="InvisaCook Home">
-                <CookingPot className="h-8 w-8 text-accent" />
+                <Image src="https://placehold.co/140x35.png" alt="InvisaCook Logo" width={140} height={35} data-ai-hint="company logo" />
             </Link>
             <CardTitle>Create an Account</CardTitle>
             <CardDescription>Join the InvisaCook community today.</CardDescription>
