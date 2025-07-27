@@ -5,6 +5,7 @@ import { ProductsOverview } from "@/components/sections/products-overview";
 import { TechnologySection } from "@/components/sections/technology-section";
 import { MediaGallery } from "@/components/sections/media-gallery";
 import { FaqSupport } from "@/components/sections/faq-support";
+import { DealerFinder } from "@/components/sections/dealer-finder";
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
         <HeroSection />
         <ProductsOverview />
         <TechnologySection />
+        <DealerFinder />
         <MediaGallery />
         <FaqSupport />
       </main>
