@@ -3,7 +3,7 @@
 
 import { useState, useMemo } from "react";
 import Image from "next/image";
-import { PlayCircle } from "lucide-react";
+import { PlayCircle, Video } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import type { Product } from "@/lib/products";
@@ -56,6 +56,9 @@ export function ProductVideos({ videos }: { videos: Product['videos'] }) {
                                                 />
                                                 <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                                                     <PlayCircle className="h-16 w-16 text-white" />
+                                                </div>
+                                                <div className="absolute top-3 left-3 bg-background/80 text-foreground p-2 rounded-full">
+                                                    <Video className="h-5 w-5" />
                                                 </div>
                                                 <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded-md text-xs">
                                                     {video.duration}

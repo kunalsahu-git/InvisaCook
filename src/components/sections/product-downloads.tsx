@@ -1,6 +1,6 @@
 
 import Link from "next/link";
-import { Download } from "lucide-react";
+import { Download, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import type { Product } from "@/lib/products";
@@ -19,23 +19,19 @@ export function ProductDownloads({ documents }: { documents: Product['documents'
                         Access detailed documentation for your product.
                     </p>
                 </div>
-                <div className="mt-12 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                <div className="mt-12 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                     {documents.map((doc) => (
-                         <Card key={doc.id}>
-                            <CardHeader>
-                            <CardTitle className="text-xl">{doc.title}</CardTitle>
-                            <CardDescription>{doc.description}</CardDescription>
-                            </CardHeader>
-                            <CardContent className="flex justify-between items-center">
-                            <div className="text-sm text-muted-foreground">
-                                {doc.type} / {doc.language}
-                            </div>
-                            <Button variant="outline" size="sm" asChild>
-                                <Link href="#">
-                                    <Download className="mr-2 h-4 w-4" />
-                                    Download
-                                </Link>
-                            </Button>
+                         <Card key={doc.id} className="text-center flex flex-col">
+                            <CardContent className="p-6 flex flex-col items-center gap-4 flex-grow">
+                                <FileText className="h-16 w-16 text-accent" />
+                                <h3 className="font-semibold text-lg">{doc.title}</h3>
+                                <p className="text-sm text-muted-foreground flex-grow">{doc.description}</p>
+                                <Button variant="outline" size="sm" asChild className="mt-auto w-full">
+                                    <Link href="#">
+                                        <Download className="mr-2 h-4 w-4" />
+                                        Download ({doc.language})
+                                    </Link>
+                                </Button>
                             </CardContent>
                         </Card>
                     ))}
