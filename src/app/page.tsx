@@ -6,6 +6,7 @@ import { TechnologySection } from "@/components/sections/technology-section";
 import { MediaGallery } from "@/components/sections/media-gallery";
 import { FaqSupport } from "@/components/sections/faq-support";
 import { DealerFinder } from "@/components/sections/dealer-finder";
+import { FeaturedOn } from "@/components/sections/featured-on";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <HeroSection />
         <ProductsOverview />
         <TechnologySection />
+        <FeaturedOn />
         <DealerFinder />
         <MediaGallery />
         <FaqSupport />
