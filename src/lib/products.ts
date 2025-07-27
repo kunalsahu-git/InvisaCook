@@ -27,9 +27,9 @@ export const productData = {
       { label: "Safety", value: "Auto-Shutoff, Pan Detection, Child Lock" },
     ],
     videos: [
-        { id: '1', videoId: 'ImjA1KTw7KA', title: 'See the InvisaCook in Action', aiHint: 'cooking demo', duration: '2:34' },
-        { id: '2', videoId: 'dQw4w9WgXcQ', title: 'Installation on Granite Countertops', aiHint: 'kitchen installation', duration: '8:12' },
-        { id: '5', videoSrc: '/videos/intro.mp4', title: 'Local Video Demo', aiHint: 'cooking demo', duration: '0:30' },
+        { id: '1', videoId: 'ImjA1KTw7KA', title: 'See the InvisaCook in Action', aiHint: 'cooking demo', duration: '2:34', category: 'Product Demo' },
+        { id: '2', videoId: 'dQw4w9WgXcQ', title: 'Installation on Granite Countertops', aiHint: 'kitchen installation', duration: '8:12', category: 'Installation' },
+        { id: '5', videoSrc: '/videos/intro.mp4', title: 'Local Video Demo', aiHint: 'cooking demo', duration: '0:30', category: 'Product Demo' },
     ],
     documents: [
       { id: 1, title: "4-Burner Installation Manual", description: "Complete guide to installing the 4-burner model.", type: "Manual", language: "English" },
@@ -68,7 +68,7 @@ export const productData = {
       { label: "Special Feature", value: "Integrated Countertop Riser" },
     ],
     videos: [
-        { id: '3', videoId: 'vx2u5uUu3DE', title: 'The Difference of 5-Ply Cookware', aiHint: 'product feature', duration: '4:05' },
+        { id: '3', videoId: 'vx2u5uUu3DE', title: 'The Difference of 5-Ply Cookware', aiHint: 'product feature', duration: '4:05', category: 'Product Feature' },
     ],
     documents: [
       { id: 2, title: "InvisaCookware Care Guide", description: "How to maintain your cookware for a lifetime of use.", type: "Guide", language: "English" },
@@ -126,7 +126,7 @@ export const productData = {
       { label: "Power Output", value: "5W, 7.5W, 10W, 15W" },
     ],
     videos: [
-        { id: '4', videoId: 'E9oKEJ1p_wI', title: 'Charge Through Stone: A Demo', aiHint: 'technology demo', duration: '1:45' },
+        { id: '4', videoId: 'E9oKEJ1p_wI', title: 'Charge Through Stone: A Demo', aiHint: 'technology demo', duration: '1:45', category: 'Product Demo' },
     ],
     documents: [
        { id: 3, title: "InvisaCharge Spec Sheet", description: "Technical specifications for the InvisaCharge unit.", type: "Spec Sheet", language: "English" },
@@ -187,6 +187,7 @@ export type Product = {
     title: string;
     aiHint: string;
     duration: string;
+    category: string;
   }[];
   documents: {
     id: number;
