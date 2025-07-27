@@ -1,7 +1,8 @@
+
 "use client"
 
 import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
@@ -71,12 +72,13 @@ export function ResourceLibrary() {
         <div className="mt-8 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
           {filteredResources.length > 0 ? (
             filteredResources.map((resource) => (
-              <Card key={resource.id}>
+              <Card key={resource.id} className="flex flex-col">
                 <CardHeader>
                   <CardTitle className="text-xl">{resource.title}</CardTitle>
                   <CardDescription>{resource.description}</CardDescription>
                 </CardHeader>
-                <CardContent className="flex justify-between items-center">
+                <CardContent className="flex-grow" />
+                <CardFooter className="flex justify-between items-center">
                   <div className="text-sm text-muted-foreground">
                     {resource.type} / {resource.language}
                   </div>
@@ -86,7 +88,7 @@ export function ResourceLibrary() {
                       Download
                     </Link>
                   </Button>
-                </CardContent>
+                </CardFooter>
               </Card>
             ))
           ) : (

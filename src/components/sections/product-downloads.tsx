@@ -1,8 +1,8 @@
 
 import Link from "next/link";
-import { Download, FileText, File, FileType } from "lucide-react";
+import { Download, FileText, File } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import type { Product } from "@/lib/products";
 
 const iconMap: { [key: string]: React.ElementType } = {
@@ -25,22 +25,27 @@ export function ProductDownloads({ documents }: { documents: Product['documents'
                         Access detailed documentation for your product.
                     </p>
                 </div>
-                <div className="mt-12 grid gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                <div className="mt-12 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                     {documents.map((doc) => {
                         const Icon = iconMap[doc.fileType] || iconMap.default;
                         return (
-                         <Card key={doc.id} className="text-center flex flex-col">
-                            <CardContent className="p-6 flex flex-col items-center gap-4 flex-grow">
-                                <Icon className="h-16 w-16 text-accent" />
-                                <h3 className="font-semibold text-lg">{doc.title}</h3>
-                                <p className="text-sm text-muted-foreground flex-grow">{doc.description}</p>
-                                <Button variant="outline" size="sm" asChild className="mt-auto w-full">
+                         <Card key={doc.id} className="flex flex-col">
+                            <CardHeader>
+                                <CardTitle className="text-xl">{doc.title}</CardTitle>
+                                <CardDescription>{doc.description}</CardDescription>
+                            </CardHeader>
+                            <CardContent className="flex-grow" />
+                            <CardFooter className="flex justify-between items-center">
+                                <div className="text-sm text-muted-foreground">
+                                    {doc.type} / {doc.language}
+                                </div>
+                                <Button variant="outline" size="sm" asChild>
                                     <Link href="#">
                                         <Download className="mr-2 h-4 w-4" />
-                                        Download ({doc.language})
+                                        Download
                                     </Link>
                                 </Button>
-                            </CardContent>
+                            </CardFooter>
                         </Card>
                     )})}
                 </div>
