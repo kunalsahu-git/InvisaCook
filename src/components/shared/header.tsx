@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, CookingPot } from "lucide-react";
+import { Menu, CookingPot, ShoppingCart } from "lucide-react";
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -35,6 +35,12 @@ export function Header() {
 
         <div className="flex items-center gap-4">
           <Button className="hidden sm:inline-flex" variant="outline">Contact Sales</Button>
+          <Button asChild variant="ghost" size="icon">
+            <Link href="/cart">
+              <ShoppingCart className="h-6 w-6" />
+              <span className="sr-only">View Cart</span>
+            </Link>
+          </Button>
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
             <SheetTrigger asChild className="md:hidden">
               <Button variant="ghost" size="icon">

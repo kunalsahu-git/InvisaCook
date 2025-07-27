@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Flame, Wifi, Zap, Layers, CircleDollarSign, Sun, BatteryCharging, Ruler, ArrowRight } from "lucide-react";
+import { Flame, Wifi, Zap, Layers, CircleDollarSign, Sun, BatteryCharging, Ruler, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -73,20 +73,22 @@ export function ProductsOverview() {
         <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {products.map((product) => (
             <Card key={product.title} className="flex flex-col overflow-hidden transition-all duration-300 hover:shadow-xl hover:-translate-y-1">
-              <div className="relative">
-                <Image
-                  src={product.image}
-                  alt={product.title}
-                  width={500}
-                  height={300}
-                  className="h-auto w-full object-cover"
-                  data-ai-hint={product.aiHint}
-                />
-              </div>
-              <CardHeader>
-                <CardTitle>{product.title}</CardTitle>
-                <CardDescription>{product.description}</CardDescription>
-              </CardHeader>
+              <Link href={`/products/${product.slug}`} className="block">
+                <div className="relative">
+                  <Image
+                    src={product.image}
+                    alt={product.title}
+                    width={500}
+                    height={300}
+                    className="h-auto w-full object-cover"
+                    data-ai-hint={product.aiHint}
+                  />
+                </div>
+                <CardHeader>
+                  <CardTitle>{product.title}</CardTitle>
+                  <CardDescription>{product.description}</CardDescription>
+                </CardHeader>
+              </Link>
               <CardContent className="flex-grow flex flex-col justify-between">
                 <div className="space-y-2">
                   <h4 className="font-semibold text-sm">Key Features:</h4>
@@ -99,11 +101,9 @@ export function ProductsOverview() {
                     ))}
                   </ul>
                 </div>
-                 <Button asChild className="mt-6 w-full" variant="outline">
-                    <Link href={`/products/${product.slug}`}>
-                        View Details
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
+                 <Button className="mt-6 w-full">
+                    <ShoppingCart className="mr-2 h-4 w-4" />
+                    Add to Cart
                 </Button>
               </CardContent>
             </Card>
