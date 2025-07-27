@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { Button } from "@/components/ui/button";
@@ -22,7 +22,13 @@ function AdminHeaderActions() {
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
   const pathname = usePathname();
+  
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const isAdminRoute = pathname.startsWith('/admin');
 
   const navItems = [
@@ -34,6 +40,20 @@ export function Header() {
     { href: "/media", label: "Media" },
     { href: "/#support", label: "Support" },
   ];
+
+  if (!isMounted) {
+    // Render a placeholder or null on the server and initial client render to avoid mismatch
+    return (
+        <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+            <div className="flex h-16 items-center container max-w-7xl px-4 md:px-6 justify-between">
+                 <Link href="/" className="flex items-center gap-2 font-bold" aria-label="InvisaCook Home">
+                    <CookingPot className="h-6 w-6 text-accent" />
+                    <span className="font-headline text-xl font-semibold">InvisaCook</span>
+                </Link>
+            </div>
+      </header>
+    );
+  }
 
   return (
     <header className={cn(
