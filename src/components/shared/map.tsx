@@ -1,12 +1,11 @@
 
-"use client";
+"use client"
 
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import { Icon, LatLngExpression } from 'leaflet';
 import { useEffect } from 'react';
 import type { Dealer } from '../sections/dealer-finder';
-import { cn } from '@/lib/utils';
 
 const customIcon = new Icon({
     iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
@@ -27,12 +26,6 @@ const selectedIcon = new Icon({
     shadowSize: [41, 41]
 });
 
-interface MapProps {
-    dealers: Dealer[];
-    selectedDealer: Dealer | null;
-    setSelectedDealer: (dealer: Dealer | null) => void;
-}
-
 function ChangeView({ center, zoom }: { center: LatLngExpression, zoom: number }) {
   const map = useMap();
   useEffect(() => {
@@ -41,7 +34,7 @@ function ChangeView({ center, zoom }: { center: LatLngExpression, zoom: number }
   return null;
 }
 
-export function Map({ dealers, selectedDealer, setSelectedDealer }: MapProps) {
+export const Map = ({ dealers, selectedDealer, setSelectedDealer }: { dealers: Dealer[], selectedDealer: Dealer | null, setSelectedDealer: (dealer: Dealer | null) => void }) => {
   const defaultPosition: LatLngExpression = [39.8283, -98.5795]; // Center of US
   const center = selectedDealer ? [selectedDealer.lat, selectedDealer.lon] as LatLngExpression : defaultPosition;
   const zoom = selectedDealer ? 14 : 4;

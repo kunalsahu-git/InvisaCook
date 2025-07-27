@@ -2,10 +2,11 @@
 "use client";
 
 import { useState } from "react";
+import 'leaflet/dist/leaflet.css';
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Input } from "@/components/ui/input";
-import { MapPin, Search, Mail, Phone, Link as LinkIcon, ArrowRight } from "lucide-react";
+import { MapPin, Search, Mail, Phone, Link as LinkIcon } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import dynamic from 'next/dynamic';
@@ -60,10 +61,17 @@ const dealers = [
 
 export type Dealer = typeof dealers[0];
 
-const Map = dynamic(() => import('../shared/map').then((mod) => mod.Map), {
-  ssr: false,
-  loading: () => <div className="h-full w-full bg-secondary flex items-center justify-center"><p>Loading map...</p></div>,
-});
+const MapPlaceholder = () => (
+  <div className="h-full w-full bg-secondary flex items-center justify-center"><p>Loading map...</p></div>
+);
+
+const DynamicMap = dynamic(
+  () => import('@/components/shared/map').then((mod) => mod.Map),
+  {
+    ssr: false,
+    loading: () => <MapPlaceholder />,
+  }
+);
 
 
 export function DealerFinder() {
@@ -81,7 +89,7 @@ export function DealerFinder() {
 
         <div className="grid lg:grid-cols-5 gap-8">
           <div className="lg:col-span-3 aspect-[4/3] w-full overflow-hidden rounded-xl shadow-lg">
-             <Map dealers={dealers} selectedDealer={selectedDealer} setSelectedDealer={setSelectedDealer} />
+             <DynamicMap dealers={dealers} selectedDealer={selectedDealer} setSelectedDealer={setSelectedDealer} />
           </div>
 
           <div className="lg:col-span-2">
