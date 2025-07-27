@@ -2,13 +2,14 @@
 import { notFound } from "next/navigation";
 import { Header } from "@/components/shared/header";
 import { Footer } from "@/components/shared/footer";
-import { Flame, Wifi, Zap, Layers, CircleDollarSign, Sun, BatteryCharging, Ruler, PlayCircle } from "lucide-react";
+import { Flame, Wifi, Zap, Layers, CircleDollarSign, Sun, BatteryCharging, Ruler, PlayCircle, Download } from "lucide-react";
 import Link from "next/link";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { CustomerReviews } from "@/components/sections/customer-reviews";
 import { RelatedProducts } from "@/components/sections/related-products";
 import Image from "next/image";
 import { ProductPageContent } from "@/components/shared/product-page-content";
+import { Button } from "@/components/ui/button";
 
 
 const productData = {
@@ -37,6 +38,11 @@ const productData = {
     videos: [
         { id: '1', title: 'See the InvisaCook in Action', thumbnail: 'https://placehold.co/600x400.png', aiHint: 'cooking demo', duration: '2:34' },
         { id: '2', title: 'Installation on Granite Countertops', thumbnail: 'https://placehold.co/600x400.png', aiHint: 'kitchen installation', duration: '8:12' },
+    ],
+    documents: [
+      { id: 1, title: "4-Burner Installation Manual", description: "Complete guide to installing the 4-burner model.", type: "Manual", language: "English" },
+      { id: 4, title: "Manual de Instalación (2 Quemadores)", description: "Guía de instalación para el modelo de 2 quemadores.", type: "Manual", language: "Spanish" },
+      { id: 6, title: "Guide d'installation de la table de cuisson", description: "Instructions complètes pour tous les modèles.", type: "Guide", language: "French" },
     ]
   },
   "invisacookware-sets": {
@@ -65,6 +71,9 @@ const productData = {
     ],
     videos: [
         { id: '3', title: 'The Difference of 5-Ply Cookware', thumbnail: 'https://placehold.co/600x400.png', aiHint: 'product feature', duration: '4:05' },
+    ],
+    documents: [
+      { id: 2, title: "InvisaCookware Care Guide", description: "How to maintain your cookware for a lifetime of use.", type: "Guide", language: "English" },
     ]
   },
   invisamat: {
@@ -87,7 +96,8 @@ const productData = {
       { label: "Heat Resistance", value: "Up to 450°F (232°C)" },
       { label: "Dimensions", value: "Available for each burner size" },
     ],
-    videos: []
+    videos: [],
+    documents: []
   },
   invisacharge: {
     title: "InvisaCharge",
@@ -114,6 +124,9 @@ const productData = {
     ],
     videos: [
         { id: '4', title: 'Charge Through Stone: A Demo', thumbnail: 'https://placehold.co/600x400.png', aiHint: 'technology demo', duration: '1:45' },
+    ],
+    documents: [
+       { id: 3, title: "InvisaCharge Spec Sheet", description: "Technical specifications for the InvisaCharge unit.", type: "Spec Sheet", language: "English" },
     ]
   },
   invisarail: {
@@ -136,14 +149,24 @@ const productData = {
       { label: "Compatibility", value: "All InvisaCook burner models" },
       { label: "Includes", value: "All necessary mounting hardware" },
     ],
-    videos: []
+    videos: [],
+    documents: [
+        { id: 5, title: "InvisaRail Technical Drawing", description: "Detailed dimensions and specs for the InvisaRail.", type: "Spec Sheet", language: "English" },
+    ]
   },
 };
 
-export type Product = Omit<(typeof productData)[keyof typeof productData], 'features'> & {
+export type Product = Omit<(typeof productData)[keyof typeof productData], 'features' | 'documents'> & {
   features: {
       icon?: string;
       text: string;
+  }[];
+  documents: {
+      id: number;
+      title: string;
+      description: string;
+      type: string;
+      language: string;
   }[];
 };
 export type ProductWithSlug = Product & { slug: string };
@@ -206,6 +229,47 @@ function ProductVideos({ videos }: { videos: Product['videos'] }) {
     );
 }
 
+function ProductDownloads({ documents }: { documents: Product['documents'] }) {
+    if (!documents || documents.length === 0) {
+        return null;
+    }
+
+    return (
+        <section className="w-full py-12 md:py-24 lg:py-32 border-t bg-secondary/50">
+            <div className="container mx-auto max-w-6xl px-4 md:px-6">
+                 <div className="mx-auto max-w-3xl text-center">
+                    <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Manuals & Guides</h2>
+                    <p className="mt-4 text-muted-foreground md:text-xl/relaxed">
+                        Access detailed documentation for your product.
+                    </p>
+                </div>
+                <div className="mt-12 grid gap-6 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+                    {documents.map((doc) => (
+                         <Card key={doc.id}>
+                            <CardHeader>
+                            <CardTitle className="text-xl">{doc.title}</CardTitle>
+                            <CardDescription>{doc.description}</CardDescription>
+                            </CardHeader>
+                            <CardContent className="flex justify-between items-center">
+                            <div className="text-sm text-muted-foreground">
+                                {doc.type} / {doc.language}
+                            </div>
+                            <Button variant="outline" size="sm" asChild>
+                                <Link href="#">
+                                    <Download className="mr-2 h-4 w-4" />
+                                    Download
+                                </Link>
+                            </Button>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
+
 export default function ProductDetailPage({
   params,
 }: {
@@ -225,6 +289,7 @@ export default function ProductDetailPage({
         <ProductPageContent product={product} />
 
         <ProductVideos videos={product.videos} />
+        <ProductDownloads documents={product.documents} />
         <CustomerReviews />
         <RelatedProducts currentProductSlug={params.slug}/>
 
