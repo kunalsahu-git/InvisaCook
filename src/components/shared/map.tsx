@@ -2,8 +2,7 @@
 "use client"
 
 import 'leaflet/dist/leaflet.css';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import { Icon, LatLngExpression, Map as LeafletMap } from 'leaflet';
+import L, { Icon, LatLngExpression, Map as LeafletMap } from 'leaflet';
 import { useEffect, useRef } from 'react';
 import type { Dealer } from '../sections/dealer-finder';
 
@@ -26,44 +25,64 @@ const selectedIcon = new Icon({
     shadowSize: [41, 41]
 });
 
-function MapUpdater({ selectedDealer }: { selectedDealer: Dealer | null }) {
-    const map = useMap();
-    useEffect(() => {
-        if (selectedDealer) {
-            map.flyTo([selectedDealer.lat, selectedDealer.lon], 13);
-        }
-    }, [selectedDealer, map]);
-    return null;
-}
-
 export const Map = ({ dealers, selectedDealer, setSelectedDealer }: { dealers: Dealer[], selectedDealer: Dealer | null, setSelectedDealer: (dealer: Dealer | null) => void }) => {
-  const defaultPosition: LatLngExpression = [39.8283, -98.5795];
-  const defaultZoom = 4;
+  const mapRef = useRef<HTMLDivElement>(null);
+  const mapInstance = useRef<LeafletMap | null>(null);
+  const markers = useRef<{ [key: string]: L.Marker }>({});
 
-  return (
-    <MapContainer center={defaultPosition} zoom={defaultZoom} scrollWheelZoom={false} className="h-full w-full" whenCreated={() => {}}>
-      <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-      />
-      <MapUpdater selectedDealer={selectedDealer} />
-      {dealers.map(dealer => (
-        <Marker 
-          key={dealer.name} 
-          position={[dealer.lat, dealer.lon]} 
-          icon={selectedDealer?.name === dealer.name ? selectedIcon : customIcon}
-          eventHandlers={{
-            click: () => {
-              setSelectedDealer(dealer);
-            }
-          }}
-        >
-          <Popup>
-            <div className="font-bold">{dealer.name}</div>
-            {dealer.address}
-          </Popup>
-        </Marker>
-      ))}
-    </MapContainer>
-  );
+  // Initialize map
+  useEffect(() => {
+    if (mapRef.current && !mapInstance.current) {
+      const map = L.map(mapRef.current, {
+        center: [39.8283, -98.5795],
+        zoom: 4,
+        scrollWheelZoom: false,
+      });
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+      }).addTo(map);
+
+      mapInstance.current = map;
+
+      // Add markers
+      dealers.forEach(dealer => {
+        const marker = L.marker([dealer.lat, dealer.lon], { icon: customIcon })
+          .addTo(map)
+          .bindPopup(`<div class="font-bold">${dealer.name}</div>${dealer.address}`)
+          .on('click', () => {
+            setSelectedDealer(dealer);
+          });
+        markers.current[dealer.name] = marker;
+      });
+    }
+
+    // Cleanup on unmount
+    return () => {
+      if (mapInstance.current) {
+        mapInstance.current.remove();
+        mapInstance.current = null;
+      }
+    };
+  }, [dealers, setSelectedDealer]);
+
+  // Handle selected dealer change
+  useEffect(() => {
+    if (mapInstance.current) {
+      // Reset all icons to default
+      Object.values(markers.current).forEach(marker => marker.setIcon(customIcon));
+
+      if (selectedDealer) {
+        // Pan to selected dealer and set selected icon
+        mapInstance.current.flyTo([selectedDealer.lat, selectedDealer.lon], 13);
+        const selectedMarker = markers.current[selectedDealer.name];
+        if (selectedMarker) {
+          selectedMarker.setIcon(selectedIcon);
+          selectedMarker.openPopup();
+        }
+      }
+    }
+  }, [selectedDealer]);
+
+  return <div ref={mapRef} className="h-full w-full" />;
 }
