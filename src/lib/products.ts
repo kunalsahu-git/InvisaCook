@@ -1,8 +1,10 @@
+
 export const productData = {
   "invisacook-burners": {
     title: "InvisaCook Burners",
     category: "Cooktops",
     price: 1799.0,
+    featured: true,
     description:
       "The core of the InvisaCook system. These powerful induction elements mount directly beneath your countertop, creating a completely invisible and versatile cooking surface. Experience the magic of cooking directly on your porcelain or granite countertop.",
     images: [
@@ -36,6 +38,7 @@ export const productData = {
     title: "InvisaCookware Sets",
     category: "Cookware",
     price: 499.0,
+    featured: true,
     description:
       "Engineered for maximum performance and to protect your valuable countertop. Our 5-ply copper core cookware ensures even heat distribution, while the proprietary riser system elevates the pan just enough to prevent scorching and optimize induction transfer.",
     images: [
@@ -68,6 +71,7 @@ export const productData = {
     title: "InvisaMat",
     category: "Accessories",
     price: 79.0,
+    featured: true,
     description:
       "The essential accessory for your InvisaCook system. This proprietary silicone mat ensures proper heat diffusion, protects the countertop surface from scratches, and helps indicate the active cooking zone. It's the perfect blend of safety and functionality.",
     images: [
@@ -92,6 +96,7 @@ export const productData = {
     title: "InvisaCharge",
     category: "Accessories",
     price: 129.0,
+    featured: false,
     description:
       "Declutter your kitchen with our through-surface wireless charger. Like the InvisaCook, the InvisaCharge mounts invisibly under your countertop, providing a powerful Qi charging station that works through up to 5cm of stone.",
     images: [
@@ -123,6 +128,7 @@ export const productData = {
     title: "InvisaRail",
     category: "Accessories",
     price: 249.0,
+    featured: false,
     description:
       "The backbone of your InvisaCook installation. This precision-engineered rail system provides the essential support structure for your undermount burners, ensuring a perfectly level and secure fit within your cabinetry.",
     images: [
@@ -151,6 +157,7 @@ export type Product = {
   title: string;
   category: string;
   price: number;
+  featured: boolean;
   description: string;
   images: {
     src: string;

@@ -1,15 +1,16 @@
+
 "use client";
 
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Flame, Wifi, Zap, Layers, CircleDollarSign, Sun, BatteryCharging, Ruler, ShoppingCart } from "lucide-react";
+import { Flame, Wifi, Zap, Layers, CircleDollarSign, Sun, BatteryCharging, Ruler, ShoppingCart, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { getAllProducts } from "@/lib/products";
 
-const products = getAllProducts();
+const products = getAllProducts().filter(p => p.featured).slice(0, 3);
 
 
 export function ProductsOverview() {
@@ -90,6 +91,15 @@ export function ProductsOverview() {
             </Card>
           ))}
         </div>
+
+        <div className="mt-16 text-center">
+            <Button asChild variant="outline" size="lg">
+              <Link href="/products">
+                View All Products <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+        </div>
+
       </div>
     </section>
   );
