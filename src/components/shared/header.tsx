@@ -1,5 +1,4 @@
 
-
 "use client";
 
 import { useState } from "react";
@@ -7,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetHeader, SheetTitle, SheetDescription } from "@/components/ui/sheet";
-import { Menu, CookingPot, ShoppingCart, PanelLeft } from "lucide-react";
+import { Menu, CookingPot, ShoppingCart, PanelLeft, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "@/components/ui/sidebar";
 
@@ -24,7 +23,8 @@ function AdminHeaderActions() {
 export function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
-  
+  const isAdminRoute = pathname.startsWith('/admin');
+
   const navItems = [
     { href: "/", label: "Home" },
     { href: "/all-products", label: "Products" },
@@ -34,8 +34,6 @@ export function Header() {
     { href: "/media", label: "Media" },
     { href: "/#support", label: "Support" },
   ];
-
-  const isAdminRoute = pathname.startsWith('/admin');
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -68,10 +66,13 @@ export function Header() {
            </nav>
         )}
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           {!isAdminRoute && (
-            <Button asChild className="hidden sm:inline-flex" variant="outline">
-              <Link href="/#support">Contact Sales</Link>
+             <Button asChild variant="ghost" size="icon">
+                <Link href="/login">
+                  <User className="h-6 w-6" />
+                  <span className="sr-only">Login</span>
+                </Link>
             </Button>
           )}
           <Button asChild variant="ghost" size="icon">
@@ -117,7 +118,7 @@ export function Header() {
                     })}
                     </nav>
                     <Button asChild variant="outline">
-                    <Link href="/#support" onClick={() => setIsOpen(false)}>Contact Sales</Link>
+                        <Link href="/login" onClick={() => setIsOpen(false)}>Login</Link>
                     </Button>
                 </div>
                 </SheetContent>

@@ -7,7 +7,6 @@ import {
   SidebarMenuButton,
   SidebarFooter,
   SidebarContent,
-  SidebarProvider,
 } from "@/components/ui/sidebar"
 import { Home, Package, ShoppingCart, LineChart, Settings } from "lucide-react"
 import Link from "next/link"
@@ -19,7 +18,6 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   return (
-    <SidebarProvider>
       <div className="flex min-h-screen w-full flex-col bg-muted/40">
         <Sidebar>
           <SidebarHeader>
@@ -31,7 +29,7 @@ export default function AdminLayout({
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link href="/admin">
+                  <Link href="/admin/dashboard">
                     <Home />
                     <span>Dashboard</span>
                   </Link>
@@ -83,6 +81,5 @@ export default function AdminLayout({
           </main>
         </div>
       </div>
-    </SidebarProvider>
   )
 }
