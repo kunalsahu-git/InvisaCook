@@ -17,40 +17,24 @@ import { Header } from "@/components/shared/header";
 import { useSidebar } from "@/hooks/use-sidebar";
 import { Button } from "@/components/ui/button";
 
-function SidebarCollapseButton() {
+function AdminSidebar() {
     const { open, toggleSidebar } = useSidebar();
-
-    if (!open) {
-        return null;
-    }
-
     return (
-        <Button 
-            variant="ghost" 
-            size="icon"
-            className="ml-auto"
-            onClick={toggleSidebar}
-        >
-            <SidebarTrigger />
-        </Button>
-    )
-}
-
-
-export default function AdminLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <SidebarProvider>
-      <div className="flex min-h-screen w-full flex-col bg-muted/40">
         <Sidebar>
           <SidebarHeader>
              <div className="flex items-center gap-2">
                 <h2 className="text-lg font-semibold">Admin</h2>
              </div>
-             <SidebarCollapseButton />
+             {open && (
+                <Button 
+                    variant="ghost" 
+                    size="icon"
+                    className="ml-auto"
+                    onClick={toggleSidebar}
+                >
+                    <SidebarTrigger />
+                </Button>
+             )}
           </SidebarHeader>
           <SidebarContent>
             <SidebarMenu>
@@ -101,6 +85,19 @@ export default function AdminLayout({
              </SidebarMenu>
           </SidebarFooter>
         </Sidebar>
+    )
+}
+
+
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <SidebarProvider>
+      <div className="flex min-h-screen w-full flex-col bg-muted/40">
+        <AdminSidebar />
         <div className="flex flex-col sm:gap-4 sm:py-4 transition-all duration-300 ease-in-out group-data-[state=expanded]/sidebar-wrapper:sm:pl-[var(--sidebar-width)] group-data-[state=collapsed]/sidebar-wrapper:sm:pl-[var(--sidebar-width-icon)]">
           <Header />
           <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">

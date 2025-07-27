@@ -323,17 +323,20 @@ const SidebarMenuButton = React.forwardRef<
       }
     }
 
-    return (
-      <Tooltip>
-        <TooltipTrigger asChild>{button}</TooltipTrigger>
-        <TooltipContent
-          side="right"
-          align="center"
-          hidden={open || isMobile}
-          {...tooltip}
-        />
-      </Tooltip>
-    )
+    if (!open && !isMobile) {
+        return (
+          <Tooltip>
+            <TooltipTrigger asChild>{button}</TooltipTrigger>
+            <TooltipContent
+              side="right"
+              align="center"
+              {...tooltip}
+            />
+          </Tooltip>
+        )
+    }
+
+    return button
   }
 )
 SidebarMenuButton.displayName = "SidebarMenuButton"
