@@ -7,37 +7,37 @@ import Link from "next/link";
 const brands = [
   {
     name: "Hexclad",
-    imageUrl: "https://placehold.co/300x300.png",
+    imageUrl: "https://placehold.co/150x150.png",
     aiHint: "cookware set",
     link: "#",
   },
   {
     name: "Made In Cookware",
-    imageUrl: "https://placehold.co/300x300.png",
+    imageUrl: "https://placehold.co/150x150.png",
     aiHint: "stainless steel cookware",
     link: "#",
   },
   {
     name: "Duxtop Whole",
-    imageUrl: "https://placehold.co/300x300.png",
+    imageUrl: "https://placehold.co/150x150.png",
     aiHint: "induction pots",
     link: "#",
   },
   {
     name: "Heritage Steel",
-    imageUrl: "https://placehold.co/300x300.png",
+    imageUrl: "https://placehold.co/150x150.png",
     aiHint: "steel pans",
     link: "#",
   },
   {
     name: "Zwilling Spirit",
-    imageUrl: "https://placehold.co/300x300.png",
+    imageUrl: "https://placehold.co/150x150.png",
     aiHint: "ceramic pans",
     link: "#",
   },
   {
     name: "AVACraft",
-    imageUrl: "https://placehold.co/300x300.png",
+    imageUrl: "https://placehold.co/150x150.png",
     aiHint: "cooking pans",
     link: "#",
   },
@@ -53,24 +53,24 @@ export function OtherCookwareBrands() {
             cookware brands for Invisacook® technology
           </h2>
         </div>
-        <div className="mt-12 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-8 sm:grid-cols-3 lg:grid-cols-6 justify-center">
           {brands.map((brand) => (
-            <div key={brand.name} className="text-center">
-              <Card className="overflow-hidden">
+            <div key={brand.name} className="text-center flex flex-col items-center">
+              <Card className="overflow-hidden w-[150px]">
                 <CardContent className="p-0">
                   <Image
                     src={brand.imageUrl}
                     alt={brand.name}
-                    width={300}
-                    height={300}
+                    width={150}
+                    height={150}
                     className="h-auto w-full object-cover aspect-square"
                     data-ai-hint={brand.aiHint}
                   />
                 </CardContent>
               </Card>
-              <h3 className="mt-4 text-lg font-semibold">{brand.name}</h3>
-              <div className="mt-4">
-                <Button asChild>
+              <h3 className="mt-4 text-base font-semibold">{brand.name}</h3>
+              <div className="mt-2">
+                <Button asChild size="sm">
                   <Link href={brand.link} target="_blank">View Manufacturer</Link>
                 </Button>
               </div>
