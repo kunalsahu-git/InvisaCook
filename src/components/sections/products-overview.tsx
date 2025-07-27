@@ -1,8 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Flame, Wifi, Zap, Layers, CircleDollarSign, Sun, BatteryCharging, Ruler, ShoppingCart, ArrowRight } from "lucide-react";
+import { Flame, Wifi, Zap, Layers, CircleDollarSign, Sun, BatteryCharging, Ruler, ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
 
 const products = [
   {
@@ -61,6 +65,16 @@ const products = [
 ];
 
 export function ProductsOverview() {
+  const [addingToCart, setAddingToCart] = useState<string | null>(null);
+
+  const handleAddToCart = (slug: string) => {
+    // In a real app, you'd also dispatch an action to update the cart state
+    setAddingToCart(slug);
+    setTimeout(() => {
+      setAddingToCart(null);
+    }, 1200); // Animation duration + delay
+  };
+
   return (
     <section id="products" className="w-full py-12 md:py-24 lg:py-32">
       <div className="container mx-auto max-w-7xl px-4 md:px-6">
@@ -85,12 +99,12 @@ export function ProductsOverview() {
                   />
                 </div>
               </Link>
-                <CardHeader>
-                  <Link href={`/products/${product.slug}`} className="block">
-                    <CardTitle>{product.title}</CardTitle>
-                    <CardDescription>{product.description}</CardDescription>
-                  </Link>
-                </CardHeader>
+              <CardHeader>
+                <Link href={`/products/${product.slug}`} className="block">
+                  <CardTitle>{product.title}</CardTitle>
+                  <CardDescription>{product.description}</CardDescription>
+                </Link>
+              </CardHeader>
               <CardContent className="flex-grow flex flex-col justify-between">
                 <div className="space-y-2">
                   <h4 className="font-semibold text-sm">Key Features:</h4>
@@ -103,8 +117,8 @@ export function ProductsOverview() {
                     ))}
                   </ul>
                 </div>
-                 <div className="mt-6 flex gap-2">
-                    <Button className="flex-1">
+                 <div className="mt-6 flex gap-2 relative">
+                    <Button className="flex-1" onClick={() => handleAddToCart(product.slug)}>
                         <ShoppingCart className="mr-2 h-4 w-4" />
                         Add to Cart
                     </Button>
@@ -113,6 +127,12 @@ export function ProductsOverview() {
                            Details
                         </Link>
                     </Button>
+                     <div className={cn(
+                        "absolute -top-3 -right-2 bg-accent text-accent-foreground text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center transition-all duration-1000 ease-out",
+                        addingToCart === product.slug ? "opacity-100 translate-y-0 scale-100" : "opacity-0 -translate-y-4 scale-50"
+                     )}>
+                        +1
+                    </div>
                 </div>
               </CardContent>
             </Card>
