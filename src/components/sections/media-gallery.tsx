@@ -11,7 +11,6 @@ const mediaItems = [
     category: "Product Demo",
     image: "https://placehold.co/600x400.png",
     aiHint: "cooking video",
-    press: "Food Network"
   },
   {
     title: "Step-by-Step Installation Tutorial",
