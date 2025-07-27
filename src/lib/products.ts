@@ -27,7 +27,7 @@ export const productData = {
       { label: "Safety", value: "Auto-Shutoff, Pan Detection, Child Lock" },
     ],
     videos: [
-        { id: '1', title: 'See the InvisaCook in Action', thumbnail: 'https://youtu.be/ImjA1KTw7KA', aiHint: 'cooking demo', duration: '2:34' },
+        { id: '1', title: 'See the InvisaCook in Action', thumbnail: 'https://i.ytimg.com/vi/ImjA1KTw7KA/hqdefault.jpg', aiHint: 'cooking demo', duration: '2:34' },
         { id: '2', title: 'Installation on Granite Countertops', thumbnail: 'https://placehold.co/600x400.png', aiHint: 'kitchen installation', duration: '8:12' },
     ],
     documents: [
