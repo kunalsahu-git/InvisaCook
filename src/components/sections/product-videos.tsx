@@ -24,7 +24,7 @@ export function ProductVideos({ videos }: { videos: Product['videos'] }) {
     }
 
     return (
-        <section className="w-full py-12 md:py-24 lg:py-32 border-t bg-background">
+        <section className="w-full py-12 md:py-24 border-t bg-background">
             <div className="container mx-auto max-w-6xl px-4 md:px-6">
                  <div className="mx-auto max-w-3xl text-center">
                     <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">See It In Action</h2>

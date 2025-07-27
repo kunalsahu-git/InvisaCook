@@ -26,7 +26,7 @@ export default function MobileAppPage() {
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1 bg-background">
-        <section className="w-full py-12 md:py-24 lg:py-32">
+        <section className="w-full py-12 md:py-24">
             <div className="container mx-auto max-w-5xl px-4 md:px-6">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <div className="space-y-6 text-center lg:text-left">

@@ -49,7 +49,7 @@ export function DealerApplication() {
   }
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-secondary/50">
+    <section className="w-full py-12 md:py-24 bg-secondary/50">
         <div className="container mx-auto max-w-4xl px-4 md:px-6">
             <div className="grid md:grid-cols-2 gap-12 items-center">
                 <div className="space-y-4 text-center md:text-left">

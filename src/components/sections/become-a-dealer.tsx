@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 export function BecomeADealer() {
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-secondary/50 border-t">
+    <section className="w-full py-12 md:py-24 border-t">
       <div className="container mx-auto max-w-4xl px-4 md:px-6 text-center">
         <h2 className="text-3xl font-bold tracking-tight">Become a Dealer</h2>
         <p className="mt-4 max-w-2xl mx-auto text-muted-foreground md:text-xl/relaxed">
