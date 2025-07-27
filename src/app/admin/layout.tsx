@@ -16,7 +16,6 @@ import Link from "next/link"
 import { Header } from "@/components/shared/header";
 import { useSidebar } from "@/hooks/use-sidebar";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 
 function SidebarCollapseButton() {
     const { open, toggleSidebar } = useSidebar();
