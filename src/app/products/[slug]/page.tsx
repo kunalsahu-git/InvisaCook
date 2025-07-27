@@ -1,5 +1,8 @@
 
 
+"use client";
+
+import { useState } from "react";
 import { notFound } from "next/navigation";
 import { Header } from "@/components/shared/header";
 import { Footer } from "@/components/shared/footer";
@@ -15,6 +18,10 @@ import {
   BatteryCharging,
   Ruler,
   ChevronLeft,
+  ShoppingCart,
+  Plus,
+  Minus,
+  PlayCircle,
 } from "lucide-react";
 import Link from "next/link";
 import {
@@ -26,10 +33,13 @@ import {
 import { ProductGallery } from "@/components/shared/product-gallery";
 import { CustomerReviews } from "@/components/sections/customer-reviews";
 import { RelatedProducts } from "@/components/sections/related-products";
+import Image from "next/image";
+import { Separator } from "@/components/ui/separator";
 
 const productData = {
   "invisacook-burners": {
     title: "InvisaCook Burners",
+    price: 1799.0,
     description:
       "The core of the InvisaCook system. These powerful induction elements mount directly beneath your countertop, creating a completely invisible and versatile cooking surface. Experience the magic of cooking directly on your porcelain or granite countertop.",
     images: [
@@ -49,9 +59,14 @@ const productData = {
       { label: "Control", value: "Digital Touch Controls & Wi-Fi App" },
       { label: "Safety", value: "Auto-Shutoff, Pan Detection, Child Lock" },
     ],
+    videos: [
+        { id: '1', title: 'See the InvisaCook in Action', thumbnail: 'https://placehold.co/600x400.png', aiHint: 'cooking demo', duration: '2:34' },
+        { id: '2', title: 'Installation on Granite Countertops', thumbnail: 'https://placehold.co/600x400.png', aiHint: 'kitchen installation', duration: '8:12' },
+    ]
   },
   "invisacookware-sets": {
     title: "InvisaCookware Sets",
+    price: 499.0,
     description:
       "Engineered for maximum performance and to protect your valuable countertop. Our 5-ply copper core cookware ensures even heat distribution, while the proprietary riser system elevates the pan just enough to prevent scorching and optimize induction transfer.",
     images: [
@@ -73,9 +88,13 @@ const productData = {
       { label: "Compatibility", value: "All induction cooktops" },
       { label: "Special Feature", value: "Integrated Countertop Riser" },
     ],
+    videos: [
+        { id: '3', title: 'The Difference of 5-Ply Cookware', thumbnail: 'https://placehold.co/600x400.png', aiHint: 'product feature', duration: '4:05' },
+    ]
   },
   invisamat: {
     title: "InvisaMat",
+    price: 79.0,
     description:
       "The essential accessory for your InvisaCook system. This proprietary silicone mat ensures proper heat diffusion, protects the countertop surface from scratches, and helps indicate the active cooking zone. It's the perfect blend of safety and functionality.",
     images: [
@@ -93,9 +112,11 @@ const productData = {
       { label: "Heat Resistance", value: "Up to 450°F (232°C)" },
       { label: "Dimensions", value: "Available for each burner size" },
     ],
+    videos: []
   },
   invisacharge: {
     title: "InvisaCharge",
+    price: 129.0,
     description:
       "Declutter your kitchen with our through-surface wireless charger. Like the InvisaCook, the InvisaCharge mounts invisibly under your countertop, providing a powerful Qi charging station that works through up to 5cm of stone.",
     images: [
@@ -116,9 +137,13 @@ const productData = {
       { label: "Max Thickness", value: "5cm (2 inches) of non-metallic material" },
       { label: "Power Output", value: "5W, 7.5W, 10W, 15W" },
     ],
+    videos: [
+        { id: '4', title: 'Charge Through Stone: A Demo', thumbnail: 'https://placehold.co/600x400.png', aiHint: 'technology demo', duration: '1:45' },
+    ]
   },
   invisarail: {
     title: "InvisaRail",
+    price: 249.0,
     description:
       "The backbone of your InvisaCook installation. This precision-engineered rail system provides the essential support structure for your undermount burners, ensuring a perfectly level and secure fit within your cabinetry.",
     images: [
@@ -136,6 +161,7 @@ const productData = {
       { label: "Compatibility", value: "All InvisaCook burner models" },
       { label: "Includes", value: "All necessary mounting hardware" },
     ],
+    videos: []
   },
 };
 
@@ -150,15 +176,66 @@ export const getAllProducts = () => {
 }
 
 
+function ProductVideos({ videos }: { videos: Product['videos'] }) {
+    if (!videos || videos.length === 0) {
+        return null;
+    }
+
+    return (
+        <section className="w-full py-12 md:py-24 lg:py-32 border-t bg-background">
+            <div className="container mx-auto max-w-6xl px-4 md:px-6">
+                 <div className="mx-auto max-w-3xl text-center">
+                    <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">See It In Action</h2>
+                    <p className="mt-4 text-muted-foreground md:text-xl/relaxed">
+                        Watch product demos, feature showcases, and installation guides.
+                    </p>
+                </div>
+                <div className="mt-12 grid gap-6 sm:grid-cols-1 lg:grid-cols-2">
+                    {videos.map((video) => (
+                        <Card key={video.id} className="group overflow-hidden">
+                            <CardContent className="p-0">
+                                <Link href="#" className="block relative">
+                                    <Image
+                                        src={video.thumbnail}
+                                        alt={video.title}
+                                        width={600}
+                                        height={400}
+                                        className="h-auto w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                                        data-ai-hint={video.aiHint}
+                                    />
+                                    <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                        <PlayCircle className="h-16 w-16 text-white" />
+                                    </div>
+                                    <div className="absolute bottom-2 right-2 bg-black/70 text-white px-2 py-1 rounded-md text-xs">
+                                        {video.duration}
+                                    </div>
+                                </Link>
+                                <div className="p-4">
+                                    <h3 className="font-semibold text-lg">{video.title}</h3>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
+}
+
 export default function ProductDetailPage({
   params,
 }: {
   params: { slug: string };
 }) {
+  const [quantity, setQuantity] = useState(1);
   const product = getProductBySlug(params.slug);
 
   if (!product) {
     notFound();
+  }
+
+  const handleQuantityChange = (amount: number) => {
+    setQuantity(prev => Math.max(1, prev + amount));
   }
 
   return (
@@ -179,7 +256,7 @@ export default function ProductDetailPage({
             <ProductGallery images={product.images} />
 
             <div className="space-y-6">
-              <div className="space-y-2">
+              <div className="space-y-4">
                 <Badge variant="secondary">{params.slug.split('-')[0]}</Badge>
                 <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
                   {product.title}
@@ -187,6 +264,30 @@ export default function ProductDetailPage({
                 <p className="text-muted-foreground md:text-lg">
                   {product.description}
                 </p>
+                <div className="text-4xl font-bold">
+                    ${product.price.toFixed(2)}
+                </div>
+              </div>
+
+              <Separator />
+
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                        <Button variant="outline" size="icon" onClick={() => handleQuantityChange(-1)}>
+                            <Minus className="h-4 w-4" />
+                        </Button>
+                        <span className="w-12 text-center text-lg font-medium">{quantity}</span>
+                         <Button variant="outline" size="icon" onClick={() => handleQuantityChange(1)}>
+                            <Plus className="h-4 w-4" />
+                        </Button>
+                    </div>
+                    <Button size="lg" variant="outline" className="flex-1">
+                        <ShoppingCart className="mr-2 h-5 w-5" />
+                        Add to Cart
+                    </Button>
+                </div>
+                <Button size="lg" className="w-full">Buy Now</Button>
               </div>
 
               <Card>
@@ -232,6 +333,7 @@ export default function ProductDetailPage({
           </div>
         </div>
         
+        <ProductVideos videos={product.videos} />
         <CustomerReviews />
         <RelatedProducts currentProductSlug={params.slug}/>
 
