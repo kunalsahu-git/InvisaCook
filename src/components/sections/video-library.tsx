@@ -1,14 +1,12 @@
 
 "use client";
 
-import { useState } from "react";
+import { useMemo } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Image from "next/image";
-import { PlayCircle, ArrowRight, Link as LinkIcon } from "lucide-react";
-import { Button } from "../ui/button";
+import { PlayCircle, Link as LinkIcon } from "lucide-react";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 
 const allMediaItems = [
   {
@@ -112,31 +110,32 @@ const MediaCard = ({ item }: { item: typeof allMediaItems[0] }) => (
     </Card>
 );
 
-export function MediaGallery({ isPage = false }: { isPage?: boolean }) {
-  const itemsToShow = isPage ? allMediaItems : allMediaItems.slice(0, 3);
+export function VideoLibrary() {
+  const groupedMedia = useMemo(() => {
+    return allMediaItems.reduce((acc, item) => {
+      const category = item.category || 'Uncategorized';
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(item);
+      return acc;
+    }, {} as Record<string, typeof allMediaItems>);
+  }, []);
+  
+  const categories = useMemo(() => Object.keys(groupedMedia), [groupedMedia]);
 
   return (
-    <section id="media" className={cn("w-full py-12 md:py-24", isPage ? "bg-background" : "bg-secondary/50")}>
-      <div className="container mx-auto max-w-7xl px-4 md:px-6">
-        <div className="mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">Media & Features</h2>
-          <p className="mt-4 text-muted-foreground md:text-xl/relaxed">
-            Watch product demos, installation tutorials, and see what the press is saying about InvisaCook.
-          </p>
-        </div>
-        <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {itemsToShow.map((item) => <MediaCard key={item.title} item={item} />)}
-        </div>
-        {!isPage && allMediaItems.length > 3 && (
-          <div className="mt-12 text-center">
-            <Button asChild variant="outline">
-              <Link href="/media">
-                View All Media <ArrowRight className="ml-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-        )}
+    <section id="media" className="w-full py-12 md:py-24 bg-secondary/50">
+      <div className="container mx-auto max-w-7xl px-4 md:px-6 space-y-16">
+          {categories.map(category => (
+            <div key={category}>
+              <h3 className="text-2xl font-bold tracking-tight mb-8 text-center">{category}</h3>
+              <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                {groupedMedia[category].map((item) => <MediaCard key={item.title} item={item} />)}
+              </div>
+            </div>
+          ))}
       </div>
     </section>
-  );
+  )
 }
