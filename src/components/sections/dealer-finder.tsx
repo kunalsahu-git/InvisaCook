@@ -21,6 +21,7 @@ import Image from "next/image";
 import { MapPin, Search, Mail, Phone, Link as LinkIcon, ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { Separator } from "../ui/separator";
+import { Map } from "../shared/map";
 
 const dealerFormSchema = z.object({
   companyName: z.string().min(2, { message: "Company name must be at least 2 characters." }),
@@ -106,14 +107,7 @@ export function DealerFinder() {
 
         <div className="grid lg:grid-cols-5 gap-8">
           <div className="lg:col-span-3 aspect-[4/3] w-full overflow-hidden rounded-xl shadow-lg">
-             <Image 
-                src="https://placehold.co/1200x900.png"
-                alt="Map of dealer locations"
-                width={1200}
-                height={900}
-                className="h-full w-full object-cover"
-                data-ai-hint="world map"
-             />
+             <Map />
           </div>
 
           <div className="lg:col-span-2">
